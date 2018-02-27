@@ -29,3 +29,17 @@ form button {
 .remind a:hover {
   text-decoration: none;
 }
+.wechatLogin {
+  border: solid 1px #ddd;
+}
+.wechatLogin img {
+  width: 100%;
+}
+.wechatLogin p {
+  text-align: center;
+  background: #f3f3f3;
+  color: #333;
+  border-top: solid 1px #ddd;
+  margin: 0px;
+  padding: 8px;
+}

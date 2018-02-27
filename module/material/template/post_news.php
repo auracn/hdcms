@@ -9,7 +9,7 @@
     <form method="post" id="app" class="form-horizontal" v-cloak @submit.prevent="submit">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                <h3 class="panel-title pull-left">图文消息管理</h3>
+                图文消息管理
             </div>
             <div class="panel-body preview">
                 <div class="row">
@@ -68,9 +68,14 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label star">封面图片</label>
                             <div class="col-sm-10">
-                                <button type="button" class="btn btn-default" @click="upImage()">
-                                    选择图片
-                                </button>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-default" @click="upImage()">
+                                        选择图片
+                                    </button>
+                                </div>
+                                <div class="input-group" style="margin-top:5px;">
+                                    <img :src="action.pic" class="img-responsive img-thumbnail" width="150">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -227,8 +232,8 @@
                             if ($.trim(v.digest) == '') {
                                 msg += "第" + pos + "个图文摘要为空<br/>";
                             }
-                            if ($.trim(v.content) == '') {
-                                msg += "第" + pos + "个图文内容为空<br/>";
+                            if (v.content_source_url == '' && $.trim(v.content) == '') {
+                                msg += "第" + pos + "个内容或链接没有设置<br/>";
                             }
                         })
                         if (msg) {

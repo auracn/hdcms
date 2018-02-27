@@ -33,7 +33,15 @@ class SiteUpload extends Common
         //中间件
         Middleware::web('upload_begin');
         $path = Request::post('uploadDir', Config::get('upload.path'));
-        Config::set('upload.mold', v('site.setting.aliyun.oss.use_site_oss') ? 'oss' : 'local');
+        //使用站点阿里云OSS配置
+        if (
+            v('site.setting.aliyun.aliyun.use_site_aliyun')
+            && v(
+                'site.setting.aliyun.oss.use_site_oss'
+            )) {
+            Config::set('oss', v('site.setting.aliyun.oss'));
+            Config::set('upload.mold', 'oss');
+        }
         //前台自定义模式
         if ($uploadMold = Request::post('mold')) {
             Config::set('upload.mold', $uploadMold);

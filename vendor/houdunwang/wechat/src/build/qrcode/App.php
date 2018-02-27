@@ -72,7 +72,6 @@ class App extends Base
      */
     public function getQrcode($ticket)
     {
-        return "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket="
-               .urlencode($ticket);
+        return "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".urlencode($ticket);
     }
 }

@@ -72,7 +72,8 @@ class App extends Base
     {
         $data = $this->request('snsapi_userinfo');
         if (isset($data['openid'])) {
-            $url = $this->apiUrl."/sns/userinfo?access_token=".$data['access_token']."&openid=".$data['openid']."&lang=zh_CN";
+            $url = $this->apiUrl."/sns/userinfo?access_token=".$data['access_token']."&openid="
+                   .$data['openid']."&lang=zh_CN";
 
             return $this->get(Curl::get($url));
         }

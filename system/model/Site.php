@@ -170,10 +170,6 @@ class Site extends Common
         if (SITEID && v('site.setting.aliyun.aliyun.use_site_aliyun')) {
             C::set('aliyun', v('site.setting.aliyun.aliyun'));
         }
-        //使用站点阿里云OSS配置
-        if (SITEID && v('site.setting.aliyun.oss.use_site_oss')) {
-            C::set('oss', v('site.setting.aliyun.oss'));
-        }
 
         return true;
     }

@@ -64,10 +64,10 @@ class WeChatMessage extends Model
     {
         foreach (v('site.modules') as $module) {
             if (Arr::get($module['subscribes'], strtolower(WeChat::getMessageType()))) {
-                $class = ($module['is_system'] == 1 ? '\module\\' : '\addons\\').$module['name']
-                         .'\system\Subscribe';
+                $type  = ($module['is_system'] == 1 ? '\module\\' : '\addons\\');
+                $class = $type.$module['name'].'\system\Subscribe';
                 if (class_exists($class)) {
-                    (new $class())->handle();
+                    (new $class())->handle(0);
                 }
             }
         }

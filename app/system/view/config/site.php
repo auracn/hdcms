@@ -48,25 +48,6 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading">阿里云</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">accessId</label>
-                    <div class="col-sm-5">
-                        <input class="form-control" v-model="field.aliyun.accessId">
-                        <span class="help-block">登录阿里云访问控制查看 https://ram.console.aliyun.com/</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">accessKey</label>
-                    <div class="col-sm-5">
-                        <input class="form-control" v-model="field.aliyun.accessKey">
-                        <span class="help-block">登录阿里云访问控制查看 https://ram.console.aliyun.com</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
             <div class="panel-heading">
                 上传配置
             </div>
