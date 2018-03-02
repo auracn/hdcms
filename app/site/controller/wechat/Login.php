@@ -22,34 +22,6 @@ trait Login
     protected function userSubscribeInitMember()
     {
         //APP关注公众号
-        if (WeChat::instance('message')->isSubscribeEvent()) {
-            $content = WeChat::instance('message')->getMessage();
-            $info    = WeChat::instance('user')->getUserInfo($content->FromUserName);
-            $openid  = $unionid = '';
-            $db      = Db::table('member_auth')->where('siteid', siteid());
-            //开放平台
-            if (isset($info['unionid']) && ! empty($info['unionid'])) {
-                $has = $db->where('unionid', $info['unionid'])->get();
-            } else {
-                //公众平台
-                $has = $db->where('wechat', $info['openid'])->get();
-            }
-            if ( ! $has) {
-                $member             = new Member();
-                $member['nickname'] = $info['nickname'];
-                $member['icon']     = $info['headimgurl'];
-                $member->save();
-                $auth = new MemberAuth();
 
-                return $auth->save(
-                    [
-                        'uid'     => $member['uid'],
-                        'siteid'  => siteid(),
-                        'wechat'  => $openid,
-                        'unionid' => $unionid,
-                    ]
-                );
-            }
-        }
     }
 }

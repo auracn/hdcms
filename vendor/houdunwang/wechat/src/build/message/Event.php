@@ -66,7 +66,9 @@ trait Event
     public function isSubscribeScanEvent()
     {
         return $this->message->MsgType == 'event'
-               && $this->message->Event == self::$EVENT_TYPE_UNSUBSCRIBE_SCAN;
+               && $this->message->Event == self::$EVENT_TYPE_UNSUBSCRIBE_SCAN
+               && isset($this->message->EventKey)
+               && isset($this->message->Ticket);
     }
 
     /**
@@ -77,7 +79,9 @@ trait Event
     public function isScanEvent()
     {
         return $this->message->MsgType == 'event'
-               && $this->message->Event == self::$EVENT_TYPE_SUBSCRIBE_SCAN;
+               && $this->message->Event == self::$EVENT_TYPE_SUBSCRIBE_SCAN
+               && isset($this->message->EventKey)
+               && isset($this->message->Ticket);;
     }
 
     /**

@@ -83,15 +83,15 @@
                     <label class="col-sm-2 control-label">第三方登录</label>
                     <div class="col-sm-10">
                         <label class="checkbox-inline">
-                            <input type="checkbox" v-model="login.pc_wechat" :true-value="1"
+                            <input type="checkbox" v-model="login.wechat" :true-value="1"
                                    :false-value="0"> 微信扫码登录
                         </label>
                         <span class="help-block">
-                            需要在 <a href="https://open.weixin.qq.com/" target="_blank">微信开放平台申请</a> 网站应用
+                            公众号必须进行过认证才可以使用扫码登录
                         </span>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" v-if="false">
                     <label class="col-sm-2 control-label">微信客户端</label>
                     <div class="col-sm-10">
                         <label class="radio-inline">

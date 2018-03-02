@@ -37,10 +37,10 @@
                 <button class="btn btn-success btn-lg btn-block">登录</button>
             </div>
         </div>
-        <if value="v('site.setting.login.pc_wechat')">
+        <if value="v('site.setting.login.wechat')">
             <div class="form-group">
                 <div class="col-sm-12">
-                    <button type="button" class="btn btn-info btn-lg btn-block">微信登录</button>
+                    <button type="button" onclick="wechatLogin()" class="btn btn-info btn-lg btn-block">微信登录</button>
                 </div>
             </div>
         </if>
@@ -60,6 +60,17 @@
                     }
                 });
             })
+        }
+
+        function wechatLogin() {
+            require(['hdjs'], function (hdjs) {
+                hdjs.modal({
+                    content: ['{!! url("entry.wechatQrLogin",[],"ucenter") !!}'],//加载的远程地址
+                    title: '微信登录',
+                    width: 350,
+                    show: true,
+                });
+            });
         }
     </script>
     <p class="remind" style="margin-bottom: 50px;">

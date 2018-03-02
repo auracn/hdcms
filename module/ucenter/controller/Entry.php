@@ -11,12 +11,13 @@
 namespace module\ucenter\controller;
 
 use Request;
-use Session;
 use module\HdController;
 use system\model\Member;
+use system\model\MemberWeChatQr;
 use system\model\Message;
-use View;
+use houdunwang\view\View;
 use houdunwang\wechat\WeChat;
+use houdunwang\session\Session;
 
 /**
  * 会员登录注册管理
@@ -195,6 +196,32 @@ class Entry extends HdController
         View::with('placeholder', $placeholder[v('site.setting.login.type')]);
 
         return $this->view($this->template.'/login', ['url' => $this->fromUrl]);
+    }
+
+    /**
+     * 桌面端微信扫码登录
+     *
+     * @param \system\model\MemberWeChatQr $memberWeChatQr
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function wechatQrLogin(MemberWeChatQr $memberWeChatQr)
+    {
+        if (IS_POST) {
+            $uid = MemberWeChatQr::where('id', Session::get('wechat_qr_login'))->pluck('uid');
+            if ($uid) {
+                Session::set('member_uid', $uid);
+
+                return $this->success('登录成功');
+            }
+
+        } else {
+            $qr = $memberWeChatQr->createQr(100, 'login');
+            Session::set('wechat_qr_login', $qr['id']);
+
+            return $this->view($this->template.'/wechatQrLogin', compact('qr'));
+        }
     }
 
     /**
