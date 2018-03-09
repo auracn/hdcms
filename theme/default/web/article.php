@@ -52,7 +52,7 @@
         <h1>{{$hdcms['title']}}</h1>
         <p class="info">作者：{{$hdcms['author']}}&nbsp;&nbsp;&nbsp;&nbsp;点击量：{{$hdcms['click']}}</p>
         <div class="content">
-            {{$hdcms['content']}}
+            {!! $hdcms['content'] !!}
         </div>
         <!--上一篇下一篇-->
         <!--<div class="np">

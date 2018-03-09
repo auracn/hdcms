@@ -11,8 +11,9 @@
 namespace module\quicknavigate\controller;
 
 use module\HdController;
-use Db;
+use houdunwang\db\Db;
 use houdunwang\request\Request;
+
 /**
  * 后台底部快捷导航
  * Class Site
@@ -56,10 +57,13 @@ class Site extends HdController
                     return message('菜单添加成功', '', 'success');
                 }
             }
-            array_push($data['module'][$module['name']]['action'], [
-                'title' => preg_replace('/\s/s', '', $post['title']),
-                'url'   => preg_replace('/\s/s', '', $post['url']),
-            ]);
+            array_push(
+                $data['module'][$module['name']]['action'],
+                [
+                    'title' => preg_replace('/\s/s', '', $post['title']),
+                    'url'   => preg_replace('/\s/s', '', $post['url']),
+                ]
+            );
         } else {
             //系统菜单,首先检测菜单是否已经存了,存在了就不添加了
             foreach ($data['system'] as $a) {
@@ -67,12 +71,18 @@ class Site extends HdController
                     return message('菜单添加成功', '', 'success');
                 }
             }
-            array_push($data['system'], [
-                'title' => preg_replace('/\s/s', '', $post['title']),
-                'url'   => preg_replace('/\s/s', '', $post['url']),
-            ]);
+            array_push(
+                $data['system'],
+                [
+                    'title' => preg_replace('/\s/s', '', $post['title']),
+                    'url'   => preg_replace('/\s/s', '', $post['url']),
+                ]
+            );
         }
-        $id = Db::table('site_quickmenu')->where('siteid', siteid())->where('uid', v('user.info.uid'))->pluck('id');
+        $id = Db::table('site_quickmenu')->where('siteid', siteid())->where(
+            'uid',
+            v('user.info.uid')
+        )->pluck('id');
         if ($id) {
             $insertData['id'] = $id;
         }
@@ -93,7 +103,10 @@ class Site extends HdController
     {
         auth();
         if (IS_POST) {
-            $data = Db::table('site_quickmenu')->where('siteid', siteid())->where('uid', v('user.info.uid'))
+            $data = Db::table('site_quickmenu')->where('siteid', siteid())->where(
+                'uid',
+                v('user.info.uid')
+            )
                       ->pluck('data');
             $data = $data
                 ? json_decode($data, true)
@@ -114,15 +127,26 @@ class Site extends HdController
 
             return message('菜单修改成功', '', 'success');
         }
-        $data = Db::table('site_quickmenu')->where('siteid', siteid())->where('uid', v('user.info.uid'))->pluck('data');
+        $data = Db::table('site_quickmenu')->where('siteid', siteid())->where(
+            'uid',
+            v('user.info.uid')
+        )->pluck('data');
         $data = $data ? json_decode($data, true) : ['status' => 0];
 
         return view($this->template.'/status.html')->with('status', $data['status']);
     }
 
+    /**
+     * 删除菜单
+     *
+     * @return mixed|string
+     */
     public function del()
     {
-        $menu = Db::table('site_quickmenu')->where('siteid', siteid())->where('uid', v('user.info.uid'))->first();
+        $menu = Db::table('site_quickmenu')->where('siteid', siteid())->where(
+            'uid',
+            v('user.info.uid')
+        )->first();
         $tmp  = $data = json_decode($menu['data'], true);
         //从系统菜单删除
         foreach ($data['system'] as $k => $d) {

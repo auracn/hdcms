@@ -33,23 +33,6 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">其他设置</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">模板目录独立</label>
-                    <div class="col-sm-10">
-                        <label class="radio-inline">
-                            <input type="radio" value="1" v-model="field.template_dir_diff"> 是
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="0" v-model="field.template_dir_diff"> 否
-                        </label>
-                        <span class="help-block">用于设置移动端与桌面端模板目录是否独立</span>
-                    </div>
-                </div>
-            </div>
-        </div>
         <textarea name="config" hidden>@{{field}}</textarea>
         <button class="btn btn-primary">提交</button>
     </form>

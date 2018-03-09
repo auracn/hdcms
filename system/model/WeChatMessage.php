@@ -47,6 +47,8 @@ class WeChatMessage extends Model
             if (Arr::get($module['processors'], strtolower(WeChat::getMessageType()))) {
                 $type  = ($module['is_system'] == 1 ? '\module\\' : '\addons\\');
                 $class = $type.$module['name'].'\system\Processor';
+                file_put_contents('a.php',var_export(v('site.modules'),true));
+                //WeChat::instance('message')->text($class);
                 if (class_exists($class)) {
                     (new $class())->handle(0);
                 }

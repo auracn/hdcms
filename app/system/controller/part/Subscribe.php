@@ -28,7 +28,7 @@ class Subscribe
  * 测试模块消息订阅器
  *
  * @author {$data['author']}
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 use module\HdSubscribe;
 class Subscribe extends HdSubscribe{

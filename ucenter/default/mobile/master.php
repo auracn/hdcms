@@ -36,6 +36,7 @@
         </p>
     </widget>
     <blade name="content"/>
+    {!! widget('module.quickmenu.widget.component.show') !!}
 </div>
 </body>
 </html>

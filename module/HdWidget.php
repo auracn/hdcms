@@ -6,6 +6,7 @@ use system\model\Modules;
 use system\model\Site;
 use houdunwang\session\Session;
 use houdunwang\view\View;
+
 /**
  * 模块业务基类
  * Class HdController
@@ -45,6 +46,7 @@ abstract class HdWidget extends Controller
      * @param int $siteid 站点编号
      *
      * @return bool
+     * @throws \Exception
      */
     public function updateSiteCache($siteid = 0)
     {

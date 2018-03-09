@@ -9,8 +9,10 @@
         <ul class="nav nav-tabs">
             <li role="presentation"><a href="{!! u('module.installed') !!}">已经安装模块</a></li>
             <li role="presentation"><a href="?s=system/module/prepared">安装模块</a></li>
-            <li role="presentation" class="active"><a href="{!! u('system.module.design') !!}">设计新模块</a></li>
-            <li role="presentation"><a href="{!! u('shop.lists',['type'=>'module']) !!}">模块商城</a></li>
+            <li role="presentation" class="active"><a
+                        href="{!! u('system.module.design') !!}">设计新模块</a></li>
+            <li role="presentation"><a href="{!! u('shop.lists',['type'=>'module']) !!}">模块商城</a>
+            </li>
             <li role="presentation"><a href="{!! u('shop.upgradeLists') !!}">模块更新</a></li>
             </li>
         </ul>
@@ -58,7 +60,8 @@
             <div class="form-group">
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label star">模块介绍</label>
                 <div class="col-sm-10 col-xs-12">
-                    <textarea v-model="field.detail" cols="30" rows="3" class="form-control"></textarea>
+                    <textarea v-model="field.detail" cols="30" rows="3"
+                              class="form-control"></textarea>
                     <span class="help-block">模块详细描述, 详细介绍模块的功能和使用方法 </span>
                 </div>
             </div>
@@ -168,12 +171,14 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.subscribes.shortvideo" value="shortvideo">小视频消息
+                            <input type="checkbox" v-model="field.subscribes.shortvideo"
+                                   value="shortvideo">小视频消息
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.subscribes.location" value="location">位置消息
+                            <input type="checkbox" v-model="field.subscribes.location"
+                                   value="location">位置消息
                         </label>
                     </div>
                     <div class="checkbox">
@@ -183,12 +188,14 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.subscribes.subscribe" value="subscribe">粉丝开始关注
+                            <input type="checkbox" v-model="field.subscribes.subscribe"
+                                   value="subscribe">粉丝开始关注
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.subscribes.unsubscribe" value="unsubscribe">粉丝取消关注
+                            <input type="checkbox" v-model="field.subscribes.unsubscribe"
+                                   value="unsubscribe">粉丝取消关注
                         </label>
                     </div>
                     <div class="checkbox">
@@ -244,12 +251,14 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.processors.shortvideo" value="shortvideo">小视频消息
+                            <input type="checkbox" v-model="field.processors.shortvideo"
+                                   value="shortvideo">小视频消息
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.processors.location" value="location">位置消息
+                            <input type="checkbox" v-model="field.processors.location"
+                                   value="location">位置消息
                         </label>
                     </div>
                     <div class="checkbox">
@@ -259,12 +268,14 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.processors.subscribe" value="subscribe">粉丝开始关注
+                            <input type="checkbox" v-model="field.processors.subscribe"
+                                   value="subscribe">粉丝开始关注
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" v-model="field.processors.unsubscribe" value="unsubscribe">粉丝取消关注
+                            <input type="checkbox" v-model="field.processors.unsubscribe"
+                                   value="unsubscribe">粉丝取消关注
                         </label>
                     </div>
                     <div class="checkbox">
@@ -292,7 +303,8 @@
                     </span>
                     <span class="help-block"><strong>注意: 直接处理消息在 system/processor.php 文件中实现</strong></span>
                     <div class="alert-warning alert">
-                        注意: 关键字路由只能针对文本消息有效, 文本消息最为重要. 其他类型的消息并不能被直接理解, 多数情况需要使用文本消息来进行语境分析, 再处理其他相关消息类型
+                        注意: 关键字路由只能针对文本消息有效, 文本消息最为重要. 其他类型的消息并不能被直接理解, 多数情况需要使用文本消息来进行语境分析,
+                        再处理其他相关消息类型
                     </div>
                 </div>
             </div>
@@ -306,7 +318,8 @@
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">操作名称</span>
-                                <input class="form-control" v-model="v.title" placeholder="请输入中文操作名称">
+                                <input class="form-control" v-model="v.title"
+                                       placeholder="请输入中文操作名称">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
@@ -318,13 +331,15 @@
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">参数</span>
-                                <input class="form-control" v-model="v.params" placeholder="请输入链接参数">
+                                <input class="form-control" v-model="v.params"
+                                       placeholder="请输入链接参数">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-1">
                             <div style="margin-left:-45px;">
                                 <label class="checkbox-inline" style="vertical-align:bottom">
-                                    <a href="#" @click.prevent="delCover(v)" class="fa fa-times-circle"
+                                    <a href="#" @click.prevent="delCover(v)"
+                                       class="fa fa-times-circle"
                                        title="删除此操作"></a>
                                 </label>
                             </div>
@@ -386,7 +401,8 @@
                         <div class="col-xs-12 col-sm-12 col-md-1">
                             <div style="margin-left:-45px;">
                                 <label class="checkbox-inline" style="vertical-align:bottom">
-                                    <a href="javascript:;" @click="delBusiness(v)" class="fa fa-times-circle"
+                                    <a href="javascript:;" @click="delBusiness(v)"
+                                       class="fa fa-times-circle"
                                        title="删除此操作"></a>
                                 </label>
                             </div>
@@ -413,7 +429,8 @@
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">参数</span>
-                                <input class="form-control" v-model="d.params" placeholder="请输入链接参数">
+                                <input class="form-control" v-model="d.params"
+                                       placeholder="请输入链接参数">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-1">
@@ -461,7 +478,7 @@
                 </div>
             </div>
             <!--模块入口设置-->
-            <h5 class="page-header">模块入口设置
+            <h5 class="page-header">模块入口
                 <small>模块的桌面访问入口导航设置</small>
             </h5>
             <div class="form-group">
@@ -477,7 +494,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-4">
                         <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                             <span class="input-group-addon">入口标识</span>
-                            <input class="form-control" v-model="field.web.entry.do" placeholder="请输入操作入口">
+                            <input class="form-control" v-model="field.web.entry.do"
+                                   placeholder="请输入操作入口">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3">
@@ -493,8 +511,8 @@
                     <span class="help-block"><strong>注意: 桌面入口导航在 system/Navigate.php 文件中实现</strong></span>
                 </div>
             </div>
-            <h5 class="page-header">桌面导航设置
-                <small>这里定义桌面访问时的导航菜单</small>
+            <h5 class="page-header">桌面导航
+                <small>这里定义桌面端会员中心导航菜单</small>
             </h5>
             <div v-for="v in field.web.member">
                 <div class="form-group">
@@ -503,7 +521,8 @@
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">操作名称</span>
-                                <input class="form-control" v-model="v.title" placeholder="请输入中文操作名称">
+                                <input class="form-control" v-model="v.title"
+                                       placeholder="请输入中文操作名称">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
@@ -515,13 +534,15 @@
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">参数</span>
-                                <input class="form-control" v-model="v.params" placeholder="请输入链接参数">
+                                <input class="form-control" v-model="v.params"
+                                       placeholder="请输入链接参数">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-1">
                             <div style="margin-left:-45px;">
                                 <label class="checkbox-inline" style="vertical-align:bottom">
-                                    <a href="javascript:;" @click="delWebMember(v)" class="fa fa-times-circle"
+                                    <a href="javascript:;" @click="delWebMember(v)"
+                                       class="fa fa-times-circle"
                                        title="删除此操作"></a>
                                 </label>
                             </div>
@@ -541,8 +562,8 @@
                 </div>
             </div>
             <!--移动端首页导航-->
-            <h5 class="page-header">移动端导航设置
-                <small>移动端的导航菜单设置</small>
+            <h5 class="page-header">手机导航
+                <small>这是定义手机移动端导航菜单的设置</small>
             </h5>
             <div v-for="v in field.mobile.home">
                 <div class="form-group">
@@ -551,25 +572,28 @@
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">操作名称</span>
-                                <input class="form-control" v-model="v.title" placeholder="请输入中文操作名称">
+                                <input class="form-control" v-model="v.title"
+                                       placeholder="请输入中文操作名称">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">入口标识</span>
-                                <input class="form-control" v-model="v.name" placeholder="请输入操作入口">
+                                <input class="form-control" v-model="v.do" placeholder="请输入操作入口">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">参数</span>
-                                <input class="form-control" v-model="v.params" placeholder="请输入链接参数">
+                                <input class="form-control" v-model="v.params"
+                                       placeholder="请输入链接参数">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-1">
                             <div style="margin-left:-45px;">
                                 <label class="checkbox-inline" style="vertical-align:bottom">
-                                    <a href="javascript:;" @click="delMobileHome(v)" class="fa fa-times-circle"
+                                    <a href="javascript:;" @click="delMobileHome(v)"
+                                       class="fa fa-times-circle"
                                        title="删除此操作"></a>
                                 </label>
                             </div>
@@ -587,7 +611,7 @@
                     <span class="help-block">
                         在微站的首页上显示相关功能的链接入口(手机端操作), 一般用于通用功能的展示.
                     </span>
-                    <span class="help-block"><strong>注意: 微站首页导航扩展功能定义于 site 类的实现中</strong></span>
+                    <span class="help-block"><strong>注意: 微站首页导航扩展功能定义于 system/Navigate.php 类的实现中</strong></span>
                 </div>
             </div>
             <!--微站会员中心导航-->
@@ -598,7 +622,8 @@
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">操作名称</span>
-                                <input class="form-control" v-model="v.title" placeholder="请输入中文操作名称">
+                                <input class="form-control" v-model="v.title"
+                                       placeholder="请输入中文操作名称">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
@@ -610,13 +635,15 @@
                         <div class="col-xs-12 col-sm-12 col-md-3">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">参数</span>
-                                <input class="form-control" v-model="v.params" placeholder="请输入链接参数">
+                                <input class="form-control" v-model="v.params"
+                                       placeholder="请输入链接参数">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-1">
                             <div style="margin-left:-45px;">
                                 <label class="checkbox-inline" style="vertical-align:bottom">
-                                    <a href="javascript:;" @click="delMobileMember(v)" class="fa fa-times-circle"
+                                    <a href="javascript:;" @click="delMobileMember(v)"
+                                       class="fa fa-times-circle"
                                        title="删除此操作"></a>
                                 </label>
                             </div>
@@ -634,7 +661,7 @@
                     <span class="help-block">
                         在微站的个人中心上显示相关功能的链接入口(手机端操作), 一般用于个人信息, 或针对个人的数据的展示.
                     </span>
-                    <span class="help-block"><strong>注意: 微站个人中心导航扩展功能定义于 site 类的实现中</strong></span>
+                    <span class="help-block"><strong>注意: 微站个人中心导航扩展功能定义于 system/Navigate.php 文件中实现</strong></span>
                 </div>
             </div>
 
@@ -655,13 +682,16 @@
                     <div class="input-group">
                         <input class="form-control" readonly="" v-model="field.preview">
                         <div class="input-group-btn">
-                            <button @click="uploadPreview()" class="btn btn-default" type="button">选择图片</button>
+                            <button @click="uploadPreview()" class="btn btn-default" type="button">
+                                选择图片
+                            </button>
                         </div>
                     </div>
                     <div class="input-group" style="margin-top:5px;">
                         <img :src="field.preview?field.preview:'resource/images/nopic.jpg'"
                              class="img-responsive img-thumbnail img-cover" width="150">
-                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片"
+                        <em class="close" style="position:absolute; top: 0px; right: -14px;"
+                            title="删除这张图片"
                             @click="field.preview=''">×</em>
                     </div>
                     <span class="help-block">模块预览图宽度最好不要超过600px, 更好的设计将会获得官方推荐位置</span>
@@ -671,7 +701,8 @@
                 <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
                 <div class="col-sm-10 col-xs-12">
                     <input type="submit" class="btn btn-primary" value="点击生成模块文件结构">
-                    <p class="help-block">点此直接在源码目录 addons/<span class="identifie"></span> 处生成模块开发的模板文件, 方便快速开发</p>
+                    <p class="help-block">点此直接在源码目录 addons/<span class="identifie"></span>
+                        处生成模块开发的模板文件, 方便快速开发</p>
                 </div>
             </div>
             <textarea name="data" v-html="field" hidden></textarea>
@@ -691,7 +722,9 @@
                         {title: '行业解决方案', name: 'industry'},
                         {title: '其他', name: 'other'}
                     ],
-                    field:<?php echo old('data', '{
+                    field:<?php echo old(
+                        'data',
+                        '{
                         "title": "",
                         "name": "",
                         "version": "",
@@ -797,7 +830,8 @@
                         "install": "",
                         "uninstall": "",
                         "upgrade": ""
-                    }');?>
+                    }'
+                    );?>
                 },
                 methods: {
                     //预览图片

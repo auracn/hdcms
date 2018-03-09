@@ -492,8 +492,8 @@
                     <span class="help-block"><strong>注意: 桌面入口导航在 system/Navigate.php 文件中实现</strong></span>
                 </div>
             </div>
-            <h5 class="page-header">桌面导航设置
-                <small>这里定义桌面访问时的导航菜单</small>
+            <h5 class="page-header">桌面导航
+                <small>这里定义桌面端会员中心导航菜单</small>
             </h5>
             <div v-for="v in field.web.member">
                 <div class="form-group">
@@ -540,8 +540,8 @@
                 </div>
             </div>
             <!--移动端首页导航-->
-            <h5 class="page-header">移动端导航设置
-                <small>移动端的导航菜单设置</small>
+            <h5 class="page-header">手机导航
+                <small>这是定义手机移动端导航菜单的设置</small>
             </h5>
             <div v-for="v in field.mobile.home">
                 <div class="form-group">
@@ -556,7 +556,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="input-group" style="margin-left:-15px;margin-bottom:10px">
                                 <span class="input-group-addon">入口标识</span>
-                                <input class="form-control" v-model="v.name" placeholder="请输入操作入口">
+                                <input class="form-control" v-model="v.do" placeholder="请输入操作入口">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3">
@@ -586,7 +586,7 @@
                     <span class="help-block">
                         在微站的首页上显示相关功能的链接入口(手机端操作), 一般用于通用功能的展示.
                     </span>
-                    <span class="help-block"><strong>注意: 微站首页导航扩展功能定义于 site 类的实现中</strong></span>
+                    <span class="help-block"><strong>注意: 微站首页导航扩展功能定义于 system/Navigate.php 类的实现中</strong></span>
                 </div>
             </div>
             <!--微站会员中心导航-->
@@ -633,10 +633,9 @@
                     <span class="help-block">
                         在微站的个人中心上显示相关功能的链接入口(手机端操作), 一般用于个人信息, 或针对个人的数据的展示.
                     </span>
-                    <span class="help-block"><strong>注意: 微站个人中心导航扩展功能定义于 site 类的实现中</strong></span>
+                    <span class="help-block"><strong>注意: 微站个人中心导航扩展功能定义于 system/Navigate.php 文件中实现</strong></span>
                 </div>
             </div>
-
             <h5 class="page-header">模块发布
                 <small>这里来定义模块发布时需要的配置项</small>
             </h5>

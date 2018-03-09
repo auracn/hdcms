@@ -5,7 +5,6 @@
         <li class="active"><a href="#">积分策略</a></li>
     </ul>
     <form method="post" class="form-horizontal" onsubmit="post(event)">
-        {{csrf_field()}}
         <div class="panel panel-default">
             <div class="panel-heading">
                 积分行为参数

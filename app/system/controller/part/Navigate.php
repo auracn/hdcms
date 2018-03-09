@@ -47,7 +47,7 @@ class Navigate
  * 模块导航菜单处理
  *
  * @author {$data['author']}
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 use module\HdNavigate;
 

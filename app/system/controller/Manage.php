@@ -66,8 +66,6 @@ class Manage extends Admin
 
             return message('缓存更新成功', 'menu');
         }
-        Site::updateAllCache();
-
         return view();
     }
 }

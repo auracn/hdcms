@@ -32,6 +32,7 @@ class Navigate extends Admin
      * @param \system\model\Navigate $NavigateModel
      *
      * @return mixed|string
+     * @throws \Exception
      */
     public function lists(Template $TemplateModel, NavigateModel $NavigateModel)
     {
@@ -63,17 +64,27 @@ class Navigate extends Admin
          * 获取导航菜单
          * entry是导航类型:home微站首页导航/profile手机会员中心导航/member桌面会员中心导航
          */
-        $nav = Db::table('navigate')->where('siteid', SITEID)->where('entry', Request::get('entry'))
-                 ->where('module', v('module.name'))->get();
+        $where = [
+            ['siteid', siteid()],
+            ['entry', Request::get('entry')],
+            ['module', v('module.name')],
+        ];
+        $nav   = Db::table('navigate')->where($where)->get();
         /**
          * 扩展模块动作时将没有添加到数据库中的菜单添加到列表中
          * 根据模块菜单的URL进行比较
          */
         if (v('module.name') != 'article') {
-            $moduleMenu = Db::table('modules_bindings')->where('module', v('module.name'))->where('entry', Request::get('entry'))->get();
+            $where      = [
+                ['module', v('module.name')],
+                ['entry', Request::get('entry')],
+            ];
+            $moduleMenu = Db::table('modules_bindings')->where($where)->get();
             foreach ($moduleMenu as $k => $v) {
-                $params                = empty($v['params']) ? '' : '&'.$v['params'];
-                $moduleMenu[$k]['url'] = "?m={$v['module']}&action=system/navigate/{$v['do']}{$params}&siteid=".SITEID;
+                $params = empty($v['params']) ? '' : '&'.$v['params'];
+                $moduleMenu[$k]['url']
+                        = "?m={$v['module']}&action=system/navigate/{$v['do']}{$params}&siteid="
+                          .SITEID;
                 foreach ($nav as $n) {
                     //如果模块的菜单已经添加到数据库中的将这个菜单从列表中移除
                     if ($n['url'] == $moduleMenu[$k]['url']) {
@@ -88,12 +99,14 @@ class Navigate extends Admin
                     'url'      => $v['url'],
                     'position' => 0,
                     'name'     => $v['title'],
-                    'css'      => json_encode([
-                        'icon'  => 'fa fa-external-link',
-                        'image' => '',
-                        'color' => '#333333',
-                        'size'  => 35,
-                    ]),
+                    'css'      => json_encode(
+                        [
+                            'icon'  => 'fa fa-external-link',
+                            'image' => '',
+                            'color' => '#333333',
+                            'size'  => 35,
+                        ]
+                    ),
                     'orderby'  => 0,
                     'status'   => 0,
                     'icontype' => 1,
@@ -110,7 +123,8 @@ class Navigate extends Admin
         if ($nav) {
             foreach ($nav as $k => $v) {
                 $nav[$k]['css']    = json_decode($v['css'], true);
-                $nav[$k]['groups'] = empty($nav[$k]['groups']) ? [0] : json_decode($nav[$k]['groups']);
+                $nav[$k]['groups'] = empty($nav[$k]['groups'])
+                    ? [0] : json_decode($nav[$k]['groups']);
             }
         }
         $groups = MemberGroup::getSiteAllMemberGroup();
@@ -127,6 +141,7 @@ class Navigate extends Admin
      * @param \system\model\Template $TemplateModel
      *
      * @return mixed|string
+     * @throws \Exception
      */
     public function post(Template $TemplateModel)
     {
@@ -134,7 +149,11 @@ class Navigate extends Admin
         if (IS_POST) {
             $data                = json_decode(Request::post('data'), true);
             $data['module']      = Request::get('m');
-            $model               = empty($data['id']) ? new NavigateModel() : NavigateModel::find($data['id']);
+            $model               = empty($data['id'])
+                ? new NavigateModel()
+                : NavigateModel::find(
+                    $data['id']
+                );
             $data['css']['size'] = min(intval($data['css']['size']), 100);
             $model->save($data);
             $url = site_url('lists', ['entry' => Request::get('entry')]);
@@ -191,52 +210,5 @@ class Navigate extends Admin
         NavigateModel::delete(Request::get('id'));
 
         return $this->success('菜单删除成功');
-    }
-
-    /**
-     * 移动端页面快捷导航
-     *
-     * @return mixed|string
-     */
-    public function quickmenu()
-    {
-        $model = Page::where('siteid', siteid())->where('type', 'quickmenu')->first();
-        if (IS_POST) {
-            $data  = json_decode(Request::post('data'), true);
-            $model = $model ?: new Page();
-            $model->save($data);
-
-            return message('保存快捷菜单成功');
-        }
-        if ($model) {
-            $model['params'] = json_decode($model['params'], true);
-            $model           = $model->toArray();
-        }
-        $field = Arr::merge([
-            'siteid'      => siteid(),
-            'web_id'      => 0,
-            'title'       => '类型:快捷导航',
-            'description' => '页面底部快捷导航',
-            'type'        => 'quickmenu',
-            'status'      => 1,
-            'html'        => '',
-            'params'      =>
-                [
-                    'style'           => 'quickmenu_normal',
-                    'menus'           =>
-                        [
-                        ],
-                    'modules'         =>
-                        [
-                        ],
-                    'has_home_button' => 1,
-                    'has_ucenter'     => 0,
-                    'has_home'        => 0,
-                    'has_special'     => 0,
-                    'has_article'     => 0,
-                ],
-        ], $model);
-
-        return view()->with('field', json_encode($field));
     }
 }

@@ -4,7 +4,7 @@
  * 测试模块模块定义
  *
  * @author 后盾人
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 use module\HdRule;
 use system\model\ReplyNews;

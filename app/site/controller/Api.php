@@ -10,7 +10,6 @@
 
 namespace app\site\controller;
 
-use app\site\controller\wechat\Login;
 use houdunwang\wechat\WeChat;
 use system\model\WeChatMessage;
 
@@ -22,7 +21,6 @@ use system\model\WeChatMessage;
  */
 class Api
 {
-    use Login;
     //消息组件实例
     protected $instance;
 
@@ -42,9 +40,6 @@ class Api
      */
     public function handle()
     {
-        //关注公众号添加会员信息
-        $this->userSubscribeInitMember();
-
         //消息定阅处理不向用户返回微信结果
         WeChatMessage::subscribe();
 

@@ -3,9 +3,9 @@
     <link rel="stylesheet" href="{!! UCENTER_TEMPLATE_URL !!}/css/home.css">
     <div class="ucenter" >
         <div>
-            <div class="header" style="background-image: url(resource/images/bg.jpg)">
+            <div class="header" style="background-image: url({!! pic($ucenter['head']['bgimg']) !!})">
                 <div class="col-xs-3 ico">
-                    <a href="{!! url('my.info') !!}"><img src="{!! pic(v('member.info.icon')) !!}"></a>
+                    <a href="{!! url('my.info') !!}"><img src="{!! icon(v('member.info.icon')) !!}"></a>
                 </div>
                 <div class="col-xs-7 user"><h2 class="col-xs-12">
                     <a href="{!! url('my.info') !!}">{!! v('member.info.nickname')?:'设置昵称' !!}</a>
@@ -52,9 +52,11 @@
         <?php $MemberMenu = \system\model\Menu::moduleMenus('profile',v('member.info.group_id'));?>
         <foreach from="$MemberMenu" value="$v">
             <div class="list-group">
+                <if value="$v['module']['name']!='ucenter'">
                 <a href="#" class="list-group-item disabled">
                     {{$v['module']['title']}}
                 </a>
+                </if>
                 <foreach from="$v['menus']" value="$field">
                     <a href="{!! $field['url'] !!}" class="list-group-item">
                         <if value="$field['icontype'] == 1">

@@ -19,7 +19,7 @@ class Processor extends HdProcessor
             foreach ($news as $f) {
                 $d['title']       = $f['title'];
                 $d['discription'] = $f['description'];
-                $d['picurl']      = __ROOT__.'/'.$f['thumb'];
+                $d['picurl']      = pic($f['thumb']);
                 switch ($f['type']) {
                     case 1:
                         //显示内容

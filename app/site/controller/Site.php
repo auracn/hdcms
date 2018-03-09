@@ -24,6 +24,7 @@ class Site extends Admin
      * @param \system\model\Site $SiteModel
      *
      * @return mixed|string
+     * @throws \Exception
      */
     public function updateCache(\system\model\Site $SiteModel)
     {

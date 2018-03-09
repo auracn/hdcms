@@ -28,7 +28,7 @@ class Processor
  * 测试模块消息处理器
  *
  * @author {$data['author']}
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 use module\HdProcessor;
 class Processor extends HdProcessor{

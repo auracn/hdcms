@@ -36,7 +36,7 @@ class Business
  * 模板目录为模块根目录下的template文件夹
  * 建议模板以控制器名为前缀,这样在模板文件多的时候容易识别
  * @author {$data['author']}
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 use module\HdController;
 

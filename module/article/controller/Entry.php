@@ -48,7 +48,6 @@ class Entry extends HdController
     public function index()
     {
         $info = $this->web->info();
-
         return $this->view($this->template . '/index')
                     ->cache($info['site_info']['index_cache_expire']);
     }

@@ -11,9 +11,8 @@
 namespace module\ucenter\controller;
 
 use houdunwang\request\Request;
-use houdunwang\validate\Validate;
-use system\model\Member;
 use system\model\MemberAddress;
+use houdunwang\view\View;
 
 /**
  * 地址管理

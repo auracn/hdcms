@@ -58,7 +58,7 @@ class SiteWeChat extends Common
 
     protected function autoEncodingaeskey()
     {
-        return substr(md5(time()) . md5(time()), 0, 43);
+        return substr(md5(time()).md5(time()), 0, 43);
     }
 
     /**
@@ -130,7 +130,7 @@ class SiteWeChat extends Common
     /**
      * 保存回复规则
      *
-     * @param $data         =[
+     * @param $data         = [
      *                      rid=>'规则编号(编辑时需要设置)',
      *                      name=>'规则名称',
      *                      module=>'模块名称',
@@ -146,7 +146,8 @@ class SiteWeChat extends Common
      *                      ]
      *                      ];
      *
-     * @return bool
+     * @return array|bool|mixed
+     * @throws \Exception
      */
     public static function rule($data)
     {
@@ -205,7 +206,7 @@ class SiteWeChat extends Common
          * 添加回复规则
          * 回复规则唯一标识，用于确定唯一个图文回复
          */
-        $name = v('module.name') . '#' . $data['name'];
+        $name = v('module.name').'#'.$data['name'];
         $rid  = Db::table('rule')->where('siteid', SITEID)->where('name', $name)->pluck('rid');
         //回复关键词
         $rule['rid']      = $rid;
@@ -252,10 +253,12 @@ class SiteWeChat extends Common
      */
     public static function getCoverByUrl($url)
     {
-        $hash = v('module.name') . '#' . md5($url);
+        $hash = v('module.name').'#'.md5($url);
 
         return Db::table('rule')->join('rule_keyword', 'rule.rid', '=', 'rule_keyword.rid')
-                 ->field('rule.rid,rule_keyword.content as keyword,rule.siteid,rule.module,rule.status')
+                 ->field(
+                     'rule.rid,rule_keyword.content as keyword,rule.siteid,rule.module,rule.status'
+                 )
                  ->where('rule.name', $hash)
                  ->first();
     }

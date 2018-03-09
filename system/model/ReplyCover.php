@@ -48,7 +48,25 @@ class ReplyCover extends Common
     {
         $url = '?m='.v('module.name').'&action=system/cover/'.$do;
 
-        return self::where('siteid', siteid())->where('module', $module)->where('url', $url)->first();
+        $where = [
+            ['siteid', siteid()],
+            ['module', $module],
+            ['url', $url],
+        ];
+
+        return self::where($where)->orderBy('id', 'DESC')->first();
+    }
+
+    /**
+     * 获取封面数据按规则编号
+     *
+     * @param int $rid 规则编号
+     *
+     * @return mixed
+     */
+    public function getByRid($rid)
+    {
+        return self::where('rid', $rid)->where('siteid', siteid())->first();
     }
 
     /**

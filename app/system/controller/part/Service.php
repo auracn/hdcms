@@ -23,7 +23,7 @@ use module\HdService;
  * 模块服务
  * 服务器就是为了实现模块间通信功能
  * @author {$data['author']}
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 class Hd extends HdService{
 	/**

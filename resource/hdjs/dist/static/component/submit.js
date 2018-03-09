@@ -15,10 +15,13 @@ define([
         }, opt);
         var data = options.data == '' ? $(options.el).serialize() : options.data;
         $('[type="submit"]').attr('disabled', 'disabled');
+        $('button').attr('disabled','disabled');
         var loadingModal = hdjs.loading();
         axios.post(options.url, data).then(function (response) {
             loadingModal.modal('hide');
+
             $('[type="submit"]').removeAttr('disabled');
+            $('button').removeAttr('disabled');
             if (_.isObject(response.data)) {
                 if ($.isFunction(options.callback)) {
                     options.callback(response.data);

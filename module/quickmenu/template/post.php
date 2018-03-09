@@ -1,6 +1,6 @@
 <extend file="resource/view/site"/>
 <block name="content">
-    <link rel="stylesheet" href="{{view_url()}}/css/quickmenu.css">
+    <link rel="stylesheet" href="{!! MODULE_TEMPLATE_PATH !!}/css/quickmenu.css">
     <ul class="nav nav-tabs" role="tablist">
         <li class="active"><a href="javascript:;">微站快捷导航</a></li>
     </ul>
@@ -18,7 +18,8 @@
                     <div class="col-sm-1 text-right">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="bootstrap-switch" v-model="menu.status" :true-value="1" :false-value="0">开启
+                                <input type="checkbox" class="bootstrap-switch"
+                                       v-model="menu.status" :true-value="1" :false-value="0">开启
                             </label>
                         </div>
                     </div>
@@ -45,14 +46,16 @@
                         <input type="checkbox" :true-value="1" v-model="menu.params.has_home"> 微站主页
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" :true-value="1" v-model="menu.params.has_article"> 文章及分类
+                        <input type="checkbox" :true-value="1" v-model="menu.params.has_article">
+                        文章及分类
                     </label>
                 </div>
                 <div style="margin-top: 10px;">
                     将导航隐藏在以下模块:
                     <a href="javascript:;" @click.prevent="moduleBrowsers()">选择模块</a>
                     <div style="margin-top: 10px;">
-							<span class="label label-success" v-for="m in menu.params.modules" v-html="m.title"
+							<span class="label label-success" v-for="m in menu.params.modules"
+                                  v-html="m.title"
                                   style="margin: 0px 5px 5px 0px;display: inline-block;"></span>
                         <span class="label label-warning" v-show="menu.params.modules.length==0">未设置，将在全部模块中显示</span>
                     </div>
@@ -60,7 +63,8 @@
             </div>
         </div>
         <!--选择风格模板-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -71,20 +75,24 @@
                     <div class="modal-body">
                         <div class="alert">
                             <label class="radio-inline">
-                                <input type="radio" value="quickmenu_normal" ng-model="menu.params.style"> 仿微信菜单模板
+                                <input type="radio" value="quickmenu_normal"
+                                       ng-model="menu.params.style"> 仿微信菜单模板
                             </label>
                             <div class="quickmenu_normal_img"></div>
                         </div>
                         <div class="alert">
                             <label class="radio-inline">
-                                <input type="radio" value="quickmenu_shop" ng-model="menu.params.style"> 商城导航模板
+                                <input type="radio" value="quickmenu_shop"
+                                       ng-model="menu.params.style"> 商城导航模板
                             </label>
                             <div class="quickmenu_shop_img"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-default" ng-click="select_style()">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="select_style()">确定
+                        </button>
                     </div>
                 </div>
             </div>
@@ -130,16 +138,20 @@
                     <div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" value="1" v-model="menu.params.has_home_button"> 显示文章首页按钮
+                                <input type="checkbox" value="1"
+                                       v-model="menu.params.has_home_button"> 显示文章首页按钮
                             </label>
                         </div>
                         <div class="quickmenu_normal_setting">
                             <div class="item" v-for="(v,k) in menu.params.menus">
-                                <i class="fa fa-times-circle delete-ico" @click="delMenu(menu.params.menus,k)"></i>
+                                <i class="fa fa-times-circle delete-ico"
+                                   @click="delMenu(menu.params.menus,k)"></i>
                                 <div class="top_menus"><h3>一级导航</h3>
                                     <div class="well">
-                                        <div class="form-group"><label class="col-sm-2 control-label">标题</label>
-                                            <div class="col-sm-10"><input class="form-control" v-model="v.title"></div>
+                                        <div class="form-group"><label
+                                                    class="col-sm-2 control-label">标题</label>
+                                            <div class="col-sm-10"><input class="form-control"
+                                                                          v-model="v.title"></div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">链接到</label>
@@ -147,11 +159,16 @@
                                                 <div class="input-group">
                                                     <input class="form-control" v-model="v.url">
                                                     <div class="input-group-btn">
-                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <button type="button"
+                                                                class="btn btn-default dropdown-toggle"
+                                                                data-toggle="dropdown"
+                                                                aria-expanded="false">
                                                             选择链接 <span class="caret"></span>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li><a href="javascript:;" @click.prevent="systemLink(v)">系统菜单</a></li>
+                                                            <li><a href="javascript:;"
+                                                                   @click.prevent="systemLink(v)">系统菜单</a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -161,11 +178,14 @@
                                 </div>
                                 <div class="child_menus">
                                     <h3>二级导航</h3>
-                                    <div class="well" style="position: relative" v-for="(m,n) in v.submenus">
-                                        <i class="fa fa-times-circle delete-ico" @click="delMenu(v.submenus,n)"></i>
+                                    <div class="well" style="position: relative"
+                                         v-for="(m,n) in v.submenus">
+                                        <i class="fa fa-times-circle delete-ico"
+                                           @click="delMenu(v.submenus,n)"></i>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">标题</label>
-                                            <div class="col-sm-10"><input class="form-control" v-model="m.title"></div>
+                                            <div class="col-sm-10"><input class="form-control"
+                                                                          v-model="m.title"></div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">链接到</label>
@@ -173,12 +193,16 @@
                                                 <div class="input-group">
                                                     <input class="form-control" v-model="m.url">
                                                     <div class="input-group-btn">
-                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <button type="button"
+                                                                class="btn btn-default dropdown-toggle"
+                                                                data-toggle="dropdown"
+                                                                aria-expanded="false">
                                                             选择链接 <span class="caret"></span>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-right">
                                                             <li>
-                                                                <a href="javascript:;" @click.prevent="systemLink(m)">系统菜单</a>
+                                                                <a href="javascript:;"
+                                                                   @click.prevent="systemLink(m)">系统菜单</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -203,12 +227,13 @@
         <br>
         <div class="text-center">
             <button type="submit" class="btn btn-default">保存菜单</button>
-            <button type="button" class="btn btn-default" onclick="location.reload(true)">放弃操作</button>
+            <button type="button" class="btn btn-default" onclick="location.reload(true)">放弃操作
+            </button>
         </div>
     </form>
 </block>
 <script>
-    require(['vue', 'hdjs', 'resource/js/hdcms.js','resource/js/link.js'], function (Vue, hdjs, hdcms,link) {
+    require(['vue', 'hdjs', 'resource/js/hdcms.js', 'resource/js/link.js'], function (Vue, hdjs, hdcms, link) {
         var ve = new Vue({
             el: '#form',
             data: {
@@ -216,11 +241,11 @@
             },
             methods: {
                 //菜单链接添加http
-                url:function(url){
-                  if(!/^http(s?):\//.test(url)){
-                      url='{{__ROOT__}}/'+url;
-                  }
-                  return url;
+                url: function (url) {
+                    if (!/^http(s?):\//.test(url)) {
+                        url = '{{__ROOT__}}/' + url;
+                    }
+                    return url;
                 },
                 //添加顶级菜单
                 addTopMenu: function () {
@@ -253,7 +278,7 @@
                         $(modules).each((i) => {
                             this.menu.params.modules.push(modules[i]);
                         })
-                    }, mid.join(','));
+                    }, mid.join(','),'addon');
                 },
                 //提交表单
                 submit: function () {

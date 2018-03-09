@@ -374,40 +374,4 @@ str;
 
         return $php;
     }
-
-    //底部快捷导航
-    public function quickmenu($attr)
-    {
-        $php
-            = <<<str
-	<link rel="stylesheet" href="/resource/css/quickmenu.css">
-	<script src="/resource/js/quickmenu.js"></script>
-    <style>
-        .quickmenu {
-            position: fixed;
-        }
-        .quickmenu .normal dl dd {
-            display: none;
-        }
-    </style>
-        <?php
-            \$res = \Db::table('page')->where('siteid',SITEID)->where('type','quickmenu')->first();
-            if(\$res){
-                \$params = json_decode(\$res['params'],true);
-                if(empty(\$params['modules'])){
-					echo '<div style="height:60px;"></div>'.\$res['html'];
-                }else{
-	                foreach(\$params['modules'] as \$v){
-	                    if(\$v['mid']==v('module.mid')){
-	                        echo '<div style="height:60px;"></div>'.\$res['html'];
-	                        break;
-	                    }
-	                }
-                }
-            }
-        ?>
-str;
-
-        return $php;
-    }
 }

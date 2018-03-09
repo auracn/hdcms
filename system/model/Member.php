@@ -250,26 +250,28 @@ class Member extends Common
      */
     public function qrLogin($url = '')
     {
-        WeChat::instance('Oauth')->qrLogin(function ($info) use ($url) {
-            $auth = MemberAuth::where('wechat', $info['openid'])->first();
-            if ( ! $auth) {
-                //帐号不存在时使用openid添加帐号
-                $user             = new MemberModel();
-                $user['nickname'] = $info['nickname'];
-                $user['icon']     = $info['headimgurl'];
-                $user['group_id'] = $this->getDefaultGroupId();
-                $user->save();
-                $model           = new MemberAuth();
-                $model['uid']    = $user['uid'];
-                $model['wechat'] = $info['openid'];
-                $model->save();
+        WeChat::instance('Oauth')->qrLogin(
+            function ($info) use ($url) {
+                $auth = MemberAuth::where('wechat', $info['openid'])->first();
+                if ( ! $auth) {
+                    //帐号不存在时使用openid添加帐号
+                    $user             = new MemberModel();
+                    $user['nickname'] = $info['nickname'];
+                    $user['icon']     = $info['headimgurl'];
+                    $user['group_id'] = $this->getDefaultGroupId();
+                    $user->save();
+                    $model           = new MemberAuth();
+                    $model['uid']    = $user['uid'];
+                    $model['wechat'] = $info['openid'];
+                    $model->save();
+                }
+                Session::set('member_uid', $auth['uid']);
+                $url = $url
+                    ?: Session::get('from', url('member.index', '', 'ucenter'));
+                Session::del('from');
+                go($url);
             }
-            Session::set('member_uid', $auth['uid']);
-            $url = $url
-                ?: Session::get('from', url('member.index', '', 'ucenter'));
-            Session::del('from');
-            go($url);
-        });
+        );
     }
 
     /**
@@ -309,30 +311,39 @@ class Member extends Common
      */
     public static function login($data)
     {
-        Validate::make([
-            ['username', 'required', '帐号不能为空', Validate::MUST_VALIDATE],
-            ['password', 'required', '密码不能为空', Validate::MUST_VALIDATE],
-            ['code', 'captcha', '验证码输入错误', Validate::EXISTS_VALIDATE],
-        ], $data);
+        Validate::make(
+            [
+                ['username', 'required', '帐号不能为空', Validate::MUST_VALIDATE],
+                ['password', 'required', '密码不能为空', Validate::MUST_VALIDATE],
+                ['code', 'captcha', '验证码输入错误', Validate::EXISTS_VALIDATE],
+            ],
+            $data
+        );
         switch (v('site.setting.login.type')) {
             case 1:
                 //手机号
-                Validate::make([
-                    ['username', 'phone', '请输入手机号', Validate::MUST_VALIDATE],
-                ], $data);
+                Validate::make(
+                    [
+                        ['username', 'phone', '请输入手机号', Validate::MUST_VALIDATE],
+                    ],
+                    $data
+                );
                 break;
             case 2:
                 //邮箱
-                Validate::make([
-                    ['username', 'email', '请输入邮箱', Validate::MUST_VALIDATE],
-                ], $data);
+                Validate::make(
+                    [
+                        ['username', 'email', '请输入邮箱', Validate::MUST_VALIDATE],
+                    ],
+                    $data
+                );
                 break;
         }
         $user = self::getUserByUsername($data['username']);
         if (empty($user)) {
             return ['valid' => 0, 'message' => '帐号不存在'];
         }
-        if (md5($data['password'] . $user['security']) != $user['password']) {
+        if (md5($data['password'].$user['security']) != $user['password']) {
             return ['valid' => 0, 'message' => '密码输入错误'];
         }
         Session::set('member_uid', $user['uid']);
@@ -352,15 +363,20 @@ class Member extends Common
             //认证订阅号或服务号,并且开启自动登录时获取微信帐户openid自动登录
             if ($info = WeChat::instance('oauth')->snsapiUserinfo()) {
                 $auth = MemberAuth::where('wechat', $info['openid'])->first();
-                if ( ! $auth) {
-                    //帐号不存在时使用openid添加帐号
-                    $this['nickname'] = $info['nickname'];
-                    $this['icon']     = $info['headimgurl'];
-                    $this['group_id'] = $this->getDefaultGroupId();
-                    $this->save();
-                    $auth           = new MemberAuth();
-                    $auth['uid']    = $this['uid'];
-                    $auth['wechat'] = $info['openid'];
+                if ($auth) {
+                    $auth['wechat']         = $info['openid'];
+                    $auth['wechat_unionid'] = isset($fans['unionid']) ? $info['unionid'] : '';
+                    $auth->save();
+                } else {
+                    $member             = new Member();
+                    $member['nickname'] = $info['nickname'];
+                    $member['icon']     = $info['headimgurl'];
+                    $member['group_id'] = MemberGroup::getDefaultGroup();
+                    $member->save();
+                    $auth                   = new MemberAuth();
+                    $auth['uid']            = $member['uid'];
+                    $auth['wechat']         = $info['openid'];
+                    $auth['wechat_unionid'] = isset($info['unionid']) ? $info['unionid'] : '';
                     $auth->save();
                 }
                 Session::set('member_uid', $auth['uid']);
@@ -383,11 +399,13 @@ class Member extends Common
     public static function register($data)
     {
         $model = new static();
-        Validate::make([
-            ['username', 'required', '帐号不能为空', Validate::MUST_VALIDATE],
-            ['password', 'required|minlen:5', '密码长度不能小于5位', Validate::MUST_VALIDATE],
-            ['code', 'captcha', '验证码输入错误', Validate::EXISTS_VALIDATE],
-        ]);
+        Validate::make(
+            [
+                ['username', 'required', '帐号不能为空', Validate::MUST_VALIDATE],
+                ['password', 'required|minlen:5', '密码长度不能小于5位', Validate::MUST_VALIDATE],
+                ['code', 'captcha', '验证码输入错误', Validate::EXISTS_VALIDATE],
+            ]
+        );
 
         //批量添加字段
         foreach ($data as $k => $v) {
@@ -467,7 +485,7 @@ class Member extends Common
      */
     public function checkPassword($password)
     {
-        if (md5($password . $this['security']) != $this['password']) {
+        if (md5($password.$this['security']) != $this['password']) {
             $this->setError('密码错误');
 
             return false;
@@ -517,7 +535,7 @@ class Member extends Common
         }
         $data             = [];
         $data['security'] = substr(md5(time()), 0, 10);
-        $data['password'] = md5($password . $data['security']);
+        $data['password'] = md5($password.$data['security']);
 
         return $data;
     }

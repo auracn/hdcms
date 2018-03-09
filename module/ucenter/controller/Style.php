@@ -45,7 +45,8 @@ class Style extends HdController
             //模块数据
             $modules = json_decode(Request::post('modules'), true);
             //查找旧的文章数据如果有时为编辑动作
-            $res                  = Page::where('siteid', $this->siteid)->where('type', 'profile')->first();
+            $res                  = Page::where('siteid', $this->siteid)->where('type', 'profile')
+                                        ->first();
             $model                = $res['id'] ? Page::find($res['id']) : new Page();
             $model['title']       = $modules['head']['title'];
             $model['description'] = $modules['head']['description'];
@@ -63,6 +64,7 @@ class Style extends HdController
             foreach ((array)$menus as $m) {
                 $NavigateModel = new Navigate();
                 if ( ! empty($m['name'])) {
+                    $data['module']   = 'ucenter';
                     $data['name']     = $m['name'];
                     $data['css']      = $m['css'];
                     $data['url']      = $m['url'];
@@ -73,16 +75,21 @@ class Style extends HdController
             }
             //************************************回复关键词处理************************************
             //会员中心顶部资料,回复关键词,描述,缩略图
-            $ucenter = $modules[0]['params'];
+            $ucenter = $modules['head'];
             //添加图文回复
-            $weChatModel->cover([
-                'name'        => '##移动端会员中心##',
-                'keyword'     => $ucenter['keyword'],
-                'title'       => $ucenter['title'],
-                'description' => $ucenter['description'],
-                'thumb'       => $ucenter['thumb'],
-                'url'         => url('member.index'),
-            ]);
+            $status = $weChatModel->cover(
+                [
+                    'name'        => '##移动端会员中心##',
+                    'keyword'     => $ucenter['keyword'],
+                    'title'       => $ucenter['title'],
+                    'description' => $ucenter['description'],
+                    'thumb'       => $ucenter['thumb'],
+                    'url'         => url('member.index'),
+                ]
+            );
+            if ($status !== true) {
+                return $this->error($status);
+            }
 
             return message('会员中心视图保存成功');
         }

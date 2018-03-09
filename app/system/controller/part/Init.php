@@ -21,7 +21,7 @@ class Init
 /**
  * 模块加载时自动执行类
  * @author {$data['author']}
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 use module\HdCommon;
 

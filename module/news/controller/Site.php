@@ -9,7 +9,7 @@ use houdunwang\view\View;
  * 图文消息管理
  *
  * @author 向军
- * @url http://open.hdcms.com
+ * @url http://www.hdcms.com
  */
 class Site extends HdController
 {

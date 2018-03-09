@@ -244,7 +244,7 @@ class Modules extends Common
         foreach ($modules as $k => $m) {
             //本地模块
             if ($m['is_system'] == 1) {
-                $modules[$k]['thumb'] = "module/{$m['name']}/{$m['thumb']}";
+                $modules[$k]['thumb'] = "module/{$m['name']}/{$m['preview']}";
             } else {
                 $modules[$k]['thumb'] = "addons/{$m['name']}/{$m['preview']}";
             }
@@ -316,7 +316,7 @@ class Modules extends Common
             }
             $cacheData[$m['name']] = $m;
         }
-        cache("modules", $cacheData, 0, ['siteid' => $siteId, 'module' => '']);
+        cache("site_all_modules", $cacheData, 0, ['siteid' => $siteId, 'module' => '']);
 
         return $cache[$siteId] = $cacheData;
     }
@@ -525,6 +525,18 @@ class Modules extends Common
                     '桌面会员中心导航',
                     $permission,
                     "?s=site/navigate/lists&entry=member&m={$name}&mark=package",
+                    'fa fa-renren'
+                );
+            }
+            if ($m['budings']['home']) {
+                $this->formatModuleAccessData(
+                    $modules,
+                    $name,
+                    'system_member',
+                    '首页导航',
+                    '移动端首页导航',
+                    $permission,
+                    "?s=site/navigate/lists&entry=home&m={$name}&mark=package",
                     'fa fa-renren'
                 );
             }
@@ -826,7 +838,7 @@ class Modules extends Common
             if ( ! Dir::create("{$dir}/{$d}")) {
                 return '模块目录创建失败,请修改addons目录的权限';
             }
-//            file_put_contents("{$dir}/{$d}/index.html", 'Not allowed to access');
+            file_put_contents("{$dir}/{$d}/index.html", 'Not allowed to access');
         }
         //模块预览图
         $info    = pathinfo($data['preview']);

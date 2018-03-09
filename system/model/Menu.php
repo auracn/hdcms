@@ -204,7 +204,7 @@ class Menu extends Common
     public static function moduleMenus($entry, $groupId = 0)
     {
         //读取菜单
-        $module = Db::table('navigate')->where('entry', 'member')->where('siteid', SITEID)->groupBy('module')->lists('module');
+        $module = Db::table('navigate')->where('entry', $entry)->where('siteid', SITEID)->groupBy('module')->lists('module');
         $data   = [];
         foreach ($module as $m) {
             if ($moduleData = Db::table('modules')->where('name', $m)->first()) {

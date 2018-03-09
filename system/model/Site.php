@@ -139,6 +139,7 @@ class Site extends Common
         if (v('site') || empty($siteId)) {
             return;
         };
+
         //站点信息
         v('site.info', cache("site", '[get]', 0, [], $siteId));
         //站点设置
@@ -234,13 +235,16 @@ class Site extends Common
         $SiteSetting                = new SiteSetting();
         $SiteSetting['siteid']      = $siteId;
         $SiteSetting['quickmenu']   = 1;
-        $SiteSetting['creditnames'] = json_encode([
-            'credit1' => ['title' => '积分', 'status' => 1, 'unit' => '个'],
-            'credit2' => ['title' => '余额', 'status' => 1, 'unit' => '元'],
-            'credit3' => ['title' => '', 'status' => 0, 'unit' => '个'],
-            'credit4' => ['title' => '', 'status' => 0, 'unit' => '个'],
-            'credit5' => ['title' => '', 'status' => 0, 'unit' => '个'],
-        ], JSON_UNESCAPED_UNICODE);
+        $SiteSetting['creditnames'] = json_encode(
+            [
+                'credit1' => ['title' => '积分', 'status' => 1, 'unit' => '个'],
+                'credit2' => ['title' => '余额', 'status' => 1, 'unit' => '元'],
+                'credit3' => ['title' => '', 'status' => 0, 'unit' => '个'],
+                'credit4' => ['title' => '', 'status' => 0, 'unit' => '个'],
+                'credit5' => ['title' => '', 'status' => 0, 'unit' => '个'],
+            ],
+            JSON_UNESCAPED_UNICODE
+        );
         //注册设置
         $SiteSetting['register'] = [
             //注册方式
@@ -258,15 +262,21 @@ class Site extends Common
             'mobile_wechat' => 1,
         ];
         //全局配置
-        $SiteSetting['config'] = json_encode([
-            'must_set_nickname' => 0,
-            'must_set_icon'     => 0,
-        ], JSON_UNESCAPED_UNICODE);
+        $SiteSetting['config'] = json_encode(
+            [
+                'must_set_nickname' => 0,
+                'must_set_icon'     => 0,
+            ],
+            JSON_UNESCAPED_UNICODE
+        );
         //积分策略
-        $SiteSetting['creditbehaviors'] = json_encode([
-            'activity' => 'credit1',
-            'currency' => 'credit2',
-        ], JSON_UNESCAPED_UNICODE);
+        $SiteSetting['creditbehaviors'] = json_encode(
+            [
+                'activity' => 'credit1',
+                'currency' => 'credit2',
+            ],
+            JSON_UNESCAPED_UNICODE
+        );
         $SiteSetting->save();
 
         /*
@@ -391,139 +401,13 @@ class Site extends Common
         $data['setting'] = self::formatSiteConfig($siteId);
         //站点模块
         $data['modules'] = (new Modules())->getSiteAllModules($siteId, false);
+
         foreach ($data as $key => $value) {
-            cache($key, $value, 0, ['siteid' => $siteId, 'module' => '', 'type' => 'system'],
-                $siteId);
+            $t = ['siteid' => $siteId, 'module' => '', 'type' => 'system'];
+            cache($key, $value, 0, $t, $siteId);
         }
 
         return true;
-    }
-
-    /**
-     * 初始站点配置项用于缓存
-     *
-     * @param int $siteId 站点编号
-     *
-     * @return array
-     */
-    protected static function formatSiteConfig($siteId)
-    {
-        $setting               = Db::table('site_setting')->where('siteid', $siteId)->first();
-        $setting               = $setting ?: [];
-        $setting ['smtp']      = Arr::merge([
-            'host'         => 'smtpdm.aliyun.com',
-            'port'         => '25',
-            'ssl'          => '0',
-            'username'     => 'edu@vip.houdunren.com',
-            'password'     => 'HOUdunwang2010',
-            'fromname'     => '后盾人在线IT教学网站',
-            'frommail'     => 'edu@vip.houdunren.com',
-            'testing'      => '1',
-            'testusername' => '2300071698@qq.com',
-        ], json_decode($setting['smtp'], true));
-        $setting ['quickmenu'] = $setting['quickmenu'];
-        //短信设置
-        $setting ['sms'] = Arr::merge([
-            'provider' => 'aliyun',
-            'aliyun'   => [
-                'endPoint' => 'https://297600.mns.cn-hangzhou.aliyuncs.com/',
-                'sign'     => '',
-                'template' => '',
-                'topic'    => 'sms.topic-cn-hangzhou',
-                'code'     => [
-                    'sign'        => '',
-                    'template'    => '',
-                    //测试手机号
-                    'test_mobile' => '',
-                ],
-            ],
-        ], json_decode($setting['sms'], true));
-        //支付设置
-        $setting ['pay'] = Arr::merge([
-            'wechat' => [
-                'open'           => 1,
-                'version'        => 1,
-                'mch_id'         => '',
-                'key'            => '',
-                'partnerid'      => '',
-                'partnerkey'     => '',
-                'paysignkey'     => '',
-                'apiclient_cert' => '',
-                'apiclient_key'  => '',
-                'rootca'         => '',
-            ],
-            'alipay' => [
-                'open'                 => 1,
-                'app_id'               => '',
-                'merchant_private_key' => '',
-                'notify_url'           => '',
-                'return_url'           => '',
-                'charset'              => 'UTF-8',
-                'sign_type'            => 'RSA2',
-                'gatewayUrl'           => 'https://openapi.alipay.com/gateway.do',
-                'alipay_public_key'    => '',
-            ],
-        ], json_decode($setting['pay'], true));
-
-        //积分名称
-        $setting ['creditnames'] = Arr::merge([
-            'credit1' => ['title' => '积分', 'status' => 1],
-            'credit2' => ['title' => '余额', 'status' => 1],
-            'credit3' => ['title' => '', 'status' => 0],
-            'credit4' => ['title' => '', 'status' => 0],
-            'credit5' => ['title' => '', 'status' => 0],
-        ], json_decode($setting['creditnames'], true));
-
-        //积分策略
-        $setting ['creditbehaviors'] = Arr::merge([
-            'activity' => 'credit1',
-            'currency' => 'credit2',
-        ], json_decode($setting['creditbehaviors'], true));
-
-        //注册配置
-        $setting ['register'] = Arr::merge([
-            //注册方式
-            'type' => 2,
-            //注册邮箱或手机号需要验证
-            'auth' => 0,
-        ], json_decode($setting['register'], true));
-
-        //登录配置
-        $setting ['login'] = Arr::merge([
-            //登录方式
-            'type'          => 2,
-            //微信桌面端登录
-            'pc_wechat'     => 0,
-            //微信客户端设置
-            'mobile_wechat' => 1,
-        ], json_decode($setting['login'], true));
-
-        //站点全局配置
-        $setting ['config'] = Arr::merge([
-            //会员必须设置昵称
-            'must_set_nickname' => 0,
-            //会员必须设置头像
-            'must_set_icon'     => 0,
-            //模板目录独立
-            'template_dir_diff' => 1,
-        ], json_decode($setting['config'], true));
-        //阿里云
-        $setting ['aliyun'] = Arr::merge([
-            'aliyun' => [
-                'use_site_aliyun' => 0,
-                'regionId'        => 'cn-hangzhou',
-                'accessId'        => '',
-                'accessKey'       => '',
-            ],
-            'oss'    => [
-                'bucket'        => '',
-                'endpoint'      => '',
-                'custom_domain' => 1,
-                'use_site_oss'  => 0,
-            ],
-        ], json_decode($setting['aliyun'], true));
-
-        return $setting;
     }
 
     /**
@@ -542,6 +426,160 @@ class Site extends Common
     }
 
     /**
+     * 初始站点配置项用于缓存
+     *
+     * @param int $siteId 站点编号
+     *
+     * @return array
+     */
+    protected static function formatSiteConfig($siteId)
+    {
+        $setting               = Db::table('site_setting')->where('siteid', $siteId)->first();
+        $setting               = $setting ?: [];
+        $setting ['smtp']      = Arr::merge(
+            [
+                'host'         => 'smtpdm.aliyun.com',
+                'port'         => '25',
+                'ssl'          => '0',
+                'username'     => 'edu@vip.houdunren.com',
+                'password'     => 'HOUdunwang2010',
+                'fromname'     => '后盾人在线IT教学网站',
+                'frommail'     => 'edu@vip.houdunren.com',
+                'testing'      => '1',
+                'testusername' => '2300071698@qq.com',
+            ],
+            json_decode($setting['smtp'], true)
+        );
+        $setting ['quickmenu'] = $setting['quickmenu'];
+        //短信设置
+        $setting ['sms'] = Arr::merge(
+            [
+                'provider' => 'aliyun',
+                'aliyun'   => [
+                    'endPoint' => 'https://297600.mns.cn-hangzhou.aliyuncs.com/',
+                    'sign'     => '',
+                    'template' => '',
+                    'topic'    => 'sms.topic-cn-hangzhou',
+                    'code'     => [
+                        'sign'        => '',
+                        'template'    => '',
+                        //测试手机号
+                        'test_mobile' => '',
+                    ],
+                ],
+            ],
+            json_decode($setting['sms'], true)
+        );
+        //支付设置
+        $setting ['pay'] = Arr::merge(
+            [
+                'wechat' => [
+                    'open'           => 1,
+                    'version'        => 1,
+                    'mch_id'         => '',
+                    'key'            => '',
+                    'partnerid'      => '',
+                    'partnerkey'     => '',
+                    'paysignkey'     => '',
+                    'apiclient_cert' => '',
+                    'apiclient_key'  => '',
+                    'rootca'         => '',
+                ],
+                'alipay' => [
+                    'open'                 => 1,
+                    'app_id'               => '',
+                    'merchant_private_key' => '',
+                    'notify_url'           => '',
+                    'return_url'           => '',
+                    'charset'              => 'UTF-8',
+                    'sign_type'            => 'RSA2',
+                    'gatewayUrl'           => 'https://openapi.alipay.com/gateway.do',
+                    'alipay_public_key'    => '',
+                ],
+            ],
+            json_decode($setting['pay'], true)
+        );
+
+        //积分名称
+        $setting ['creditnames'] = Arr::merge(
+            [
+                'credit1' => ['title' => '积分', 'status' => 1],
+                'credit2' => ['title' => '余额', 'status' => 1],
+                'credit3' => ['title' => '', 'status' => 0],
+                'credit4' => ['title' => '', 'status' => 0],
+                'credit5' => ['title' => '', 'status' => 0],
+            ],
+            json_decode($setting['creditnames'], true)
+        );
+
+        //积分策略
+        $setting ['creditbehaviors'] = Arr::merge(
+            [
+                'activity' => 'credit1',
+                'currency' => 'credit2',
+            ],
+            json_decode($setting['creditbehaviors'], true)
+        );
+
+        //注册配置
+        $setting ['register'] = Arr::merge(
+            [
+                //注册方式
+                'type' => 2,
+                //注册邮箱或手机号需要验证
+                'auth' => 0,
+            ],
+            json_decode($setting['register'], true)
+        );
+
+        //登录配置
+        $setting ['login'] = Arr::merge(
+            [
+                //登录方式
+                'type'          => 2,
+                //微信桌面端登录
+                'pc_wechat'     => 0,
+                //微信客户端设置
+                'mobile_wechat' => 1,
+            ],
+            json_decode($setting['login'], true)
+        );
+
+        //站点全局配置
+        $setting ['config'] = Arr::merge(
+            [
+                //会员必须设置昵称
+                'must_set_nickname' => 0,
+                //会员必须设置头像
+                'must_set_icon'     => 0,
+                //模板目录独立
+//                'template_dir_diff' => 1,
+            ],
+            json_decode($setting['config'], true)
+        );
+        //阿里云
+        $setting ['aliyun'] = Arr::merge(
+            [
+                'aliyun' => [
+                    'use_site_aliyun' => 0,
+                    'regionId'        => 'cn-hangzhou',
+                    'accessId'        => '',
+                    'accessKey'       => '',
+                ],
+                'oss'    => [
+                    'bucket'        => '',
+                    'endpoint'      => '',
+                    'custom_domain' => 1,
+                    'use_site_oss'  => 0,
+                ],
+            ],
+            json_decode($setting['aliyun'], true)
+        );
+
+        return $setting;
+    }
+
+    /**
      * 根据站长会员编号更新站点编号
      *
      * @param int $uid 站长编号
@@ -552,7 +590,9 @@ class Site extends Common
     public static function updateSiteCacheByUid($uid = 0)
     {
         $uid   = $uid ?: v('user.info.uid');
-        $sites = Db::table('site_user')->where('uid', $uid)->where('role', 'owner')->lists('siteid');
+        $sites = Db::table('site_user')->where('uid', $uid)->where('role', 'owner')->lists(
+            'siteid'
+        );
         foreach ((array)$sites as $id) {
             self::updateCache($id);
         }

@@ -1,5 +1,6 @@
 <?php namespace app\component\controller;
 
+use houdunwang\request\Request;
 use system\model\Template;
 use Db;
 
@@ -17,13 +18,25 @@ class Module
     }
 
     /**
-     * 模块列表
+     * 所有模块列表
      *
      * @return mixed
      */
     public function moduleBrowser()
     {
-        $modules    = v('site.modules');
+        $type    = Request::get('type');
+        $modules = v('site.modules');
+        switch ($type) {
+            case 'all':
+                break;
+            case 'addon':
+                foreach ($modules as $k => $m) {
+                    if ($m['is_system'] == 1) {
+                        unset($modules[$k]);
+                    }
+                }
+                break;
+        }
         $useModules = explode(',', q('get.mid', '', []));
 
         return view('', compact('modules', 'useModules'));

@@ -14,13 +14,18 @@ class processor extends HdProcessor
     //规则编号
     public function handle($rid = 0)
     {
-        $res = Db::table('reply_cover')->where('rid', $rid)->where('siteid', SITEID)->first();
+        $where = [
+            ['rid', $rid],
+            ['siteid', SITEID],
+        ];
+        $res   = Db::table('reply_cover')->where($where)->orderBy('id', 'DESC')->first();
         if ($res) {
             $data[] = [
-                'title'       => $res['title'],
-                'discription' => $res['description'],
-                'picurl'      => __ROOT__.'/'.$res['thumb'],
-                'url'         => preg_match('/^http/i', $res['url']) ? $res['url'] : __ROOT__.'/'.$res['url'],
+                'title'       => $res['title'].$rid,
+                'discription' => $res['description'].'=>'.$res['thumb'],
+                'picurl'      => pic($res['thumb']),
+                'url'         => preg_match('/^http/i', $res['url']) ? $res['url']
+                    : __ROOT__.'/'.$res['url'],
             ];
             $this->news($data);
         }
