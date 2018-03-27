@@ -22,7 +22,7 @@
     <div class="right">
         <div class="heying36">
             <img src="{{ARTICLE_URL}}/images/topbanner.jpg" class="topbanner"/>
-            <h3 class="toptitle">只有在后盾人可以获得如此深厚的师生情</h3>
+            <h3 class="toptitle">在后盾人可以获得深厚的师生情,亲如一家</h3>
         </div>
 
         <!--就业数据-->

@@ -983,7 +983,9 @@ class Modules extends Common
             $info      = pathinfo($file);
             $namespace = "addons\\{$name}\\database\migrations";
             $class     = $namespace.'\\'.$info['filename'];
-            (new $class)->down();
+            if (class_exists($class)) {
+                (new $class)->down();
+            }
             Db::table('migrations')->where('migration', $info['basename'])->delete();
         }
 

@@ -84,8 +84,8 @@
 </div>
 
 <!--后盾优势banner-->
-<a href="/article11-193-42-3.html" style="display: block;width: 1200px;margin: 0 auto;margin-top: 10px;">
-	<img src="http://bbs.houdunwang.com/data/attachment/album/201711/22/122030by2ii21yqzif99cf.jpg" usemap="#Map" border="0" />
+<a href="/article11-213-42-3.html" style="display: block;width: 1200px;margin: 0 auto;margin-top: 10px;">
+	<img src="http://bbs.houdunwang.com/data/attachment/album/201803/27/142913kkyissjc9ya0jyvc.jpg" usemap="#Map" border="0" />
 	<map name="Map" id="Map">
 	  <area shape="rect" coords="895,-7,963,128" href="http://www.hdcms.com/" target="_blank" />
 	  <area shape="rect" coords="964,-7,1041,128" href="http://www.hdphp.com/" target="_blank" />
@@ -97,9 +97,9 @@
 <!--后盾优势banner结束-->
 
 <!-- react native -->
-<a href="http://www.houdunren.com/houdunren18_lesson_187" target="_blank" style="display:block;width:1200px;height:130px;margin:0 auto;">
+<!--<a href="http://www.houdunren.com/houdunren18_lesson_187" target="_blank" style="display:block;width:1200px;height:130px;margin:0 auto;">
     <img src="http://bbs.houdunwang.com/data/attachment/album/201712/11/110911mq5g0q7azdjqqo8q.jpg">
-</a>
+</a>-->
 <!-- react native end -->
 
 
@@ -342,7 +342,7 @@
 <div id="clients">
     <div class="clientarea">
         <h2>谁选择了我们的学生？</h2>
-        <p>我们培养最负责任的行业最NB的PHP工程师！</p>
+        <p>我们培养负责任的大神级PHP工程师！</p>
         <ul>
             <li>
                 <a href="javascript:;"><img src="{{ARTICLE_URL}}/images/ansys.jpg"/></a>
@@ -401,7 +401,7 @@
             <a href="http://bbs.houdunwang.com/forum-89-1.html" target="_blank">问题解答区</a>
             <!--<a href="http://bbs.houdunwang.com/forum-105-1.html" target="_blank">HDPHP框架问答</a>-->
             <a href="http://bbs.houdunwang.com/forum.php?gid=287" target="_blank">向军老师免费视频</a>
-            <a href="http://bbs.houdunwang.com/forum.php?gid=307" class="last" target="_blank">最新零基础视频教程</a>
+            <a href="http://bbs.houdunwang.com/forum.php?gid=307" class="last" target="_blank">零基础视频教程</a>
         </div>
         <div class="des">通过论坛分享心得，结交更多热爱技术的朋友</div>
         <br>

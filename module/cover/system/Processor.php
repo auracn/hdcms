@@ -21,8 +21,8 @@ class processor extends HdProcessor
         $res   = Db::table('reply_cover')->where($where)->orderBy('id', 'DESC')->first();
         if ($res) {
             $data[] = [
-                'title'       => $res['title'].$rid,
-                'discription' => $res['description'].'=>'.$res['thumb'],
+                'title'       => $res['title'],
+                'discription' => $res['description'],
                 'picurl'      => pic($res['thumb']),
                 'url'         => preg_match('/^http/i', $res['url']) ? $res['url']
                     : __ROOT__.'/'.$res['url'],

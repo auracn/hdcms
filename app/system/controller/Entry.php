@@ -23,7 +23,8 @@ class Entry extends Admin
      *
      * @param \system\request\UserRequest $request
      *
-     * @return mixed
+     * @return mixed|string
+     * @throws \Exception
      */
     public function register(UserRequest $request)
     {

@@ -6,6 +6,7 @@ use system\model\Modules;
 use system\model\Site;
 use houdunwang\session\Session;
 use houdunwang\view\View;
+use houdunwang\request\Request;
 
 /**
  * 模块业务基类

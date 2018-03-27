@@ -39,6 +39,7 @@
             alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
         }
     }
-</script>
-<script src="/resource/hdjs/dist/static/requirejs/require.js?version={{HDCMS_VERSION}}"></script>
+</script> 
+
+<script src="https://cdn.bootcss.com/require.js/2.3.5/require.js?version={{HDCMS_VERSION}}"></script>
 <script src="/resource/hdjs/dist/static/requirejs/config.js?version={{HDCMS_VERSION}}"></script>

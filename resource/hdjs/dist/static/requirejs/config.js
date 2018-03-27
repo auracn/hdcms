@@ -28,12 +28,15 @@ require.config({
         webuploader: 'dist/static/package/webuploader/dist/webuploader',
         md5: 'https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min',
         bootstrap: 'https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min',
+        semantic: 'https://cdn.bootcss.com/semantic-ui/2.3.0/semantic.min',
         lodash: 'https://cdn.bootcss.com/lodash.js/4.17.4/lodash.min',
         //复选框切换
         bootstrapswitch: 'https://cdn.bootcss.com/bootstrap-switch/4.0.0-alpha.1/js/bootstrap-switch.min',
         select2: 'https://cdn.bootcss.com/select2/4.0.6-rc.1/js/select2.min',
         bootstrapfilestyle: 'https://cdn.bootcss.com/bootstrap-filestyle/2.1.0/bootstrap-filestyle.min',
         moment: 'https://cdn.bootcss.com/moment.js/2.14.0/moment.min',
+        util: "dist/static/component/util",
+        oss: "dist/static/component/oss",
         'jquery-mousewheel': 'https://cdn.bootcss.com/jquery-mousewheel/3.1.13/jquery.mousewheel.min',
         //markdown编辑器edit.md设置
         jquery: "https://cdn.bootcss.com/jquery/3.2.1/jquery.min",
@@ -45,14 +48,39 @@ require.config({
         jqueryflowchart: "dist/static/package/editor.md/lib/jquery.flowchart.min",
         sequenceDiagram: "dist/static/package/editor.md/lib/sequence-diagram.min",
         katex: "https://cdn.bootcss.com/KaTeX/0.1.1/katex.min",
+        editormd: "dist/static/package/editor.md/editormd.amd",
         codemirror: "https://cdn.bootcss.com/codemirror/5.31.0/codemirror",
-        editormd: "dist/static/package/editor.md/lib/../editormd.amd",
-        util: "dist/static/component/util",
-        oss: "dist/static/component/oss",
+        //代码高亮
+        highlight: "http://cdn.bootcss.com/highlight.js/8.0/highlight.min",
+        plupload:"https://cdn.bootcss.com/plupload/2.1.2/plupload.full.min"
     },
     shim: {
+        plupload: {
+            exports:'plupload'
+        },
+        highlight: {
+            deps: ["css!https://cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css"]
+        },
+        editormd: {
+            deps: [
+                "flowchart", "sequenceDiagram",
+                "css!dist/static/package/editor.md/css/editormd.min.css",
+                "css!dist/static/package/editor.md/lib/codemirror/codemirror.min.css"
+            ]
+        },
+        sequenceDiagram: {
+            deps: [
+                "raphael"
+            ]
+        },
+        jqueryflowchart: {
+            deps: ['flowchart', 'raphael']
+        },
         hdjs: {
             deps: ['css!dist/static/css/hdjs.css']
+        },
+        semantic: {
+            deps: ['jquery', 'css!https://cdn.bootcss.com/semantic-ui/2.3.0/semantic.min.css']
         },
         bootstrap: {
             exports: '$',
@@ -75,12 +103,6 @@ require.config({
         },
         ueditor: {
             deps: ['ZeroClipboard', 'dist/static/package/ueditor/ueditor.config']
-        },
-        editormd: {
-            deps: [
-                "css!dist/static/package/editor.md/css/editormd.min.css",
-                "css!dist/static/package/editor.md/lib/codemirror/codemirror.min.css"
-            ]
         }
     },
     waitSeconds: 30

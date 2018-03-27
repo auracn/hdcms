@@ -39,6 +39,7 @@ class SiteUpload extends Common
             && v(
                 'site.setting.aliyun.oss.use_site_oss'
             )) {
+            Config::set('aliyun', v('site.setting.aliyun.aliyun'));
             Config::set('oss', v('site.setting.aliyun.oss'));
             Config::set('upload.mold', 'oss');
         }

@@ -17,7 +17,7 @@
             <li role="presentation"><a href="{!! u('template.installed') !!}">已经安装模板</a></li>
             <li role="presentation"><a href="{!! u('template.prepared') !!}">安装模板</a></li>
             <li role="presentation"><a href="{!! u('template.design') !!}">设计新模板</a></li>
-            <li role="presentation" class="active"><a href="javascript:;">模板商城</a></li>
+<!--            <li role="presentation" class="active"><a href="javascript:;">模板商城</a></li>-->
             <li role="presentation"><a href="{!! u('shop.buy',['type'=>'template']) !!}">已购模板</a></li>
         </if>
     </ul>
@@ -90,7 +90,7 @@
                     var This = this;
                     this.get(1);
                     $('.pagination').delegate('li a', 'click', function () {
-                        This.get($(this).text());
+                        This.get($(this).attr('page'));
                         return false;
                     });
                 },

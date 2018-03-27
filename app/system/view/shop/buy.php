@@ -10,7 +10,7 @@
             <li role="presentation"><a href="{!! u('module.installed') !!}">已经安装模块</a></li>
             <li role="presentation"><a href="{!! u('module.prepared') !!}">安装模块</a></li>
             <li role="presentation"><a href="{!! u('module.design') !!}">设计新模块</a></li>
-            <li role="presentation"><a href="{!! u('shop.lists',['type'=>'module']) !!}">模块商城</a>
+            <!--            <li role="presentation"><a href="{!! u('shop.lists',['type'=>'module']) !!}">模块商城</a>-->
             </li>
             <li role="presentation"><a href="{!! u('shop.upgradeLists') !!}">模块更新</a></li>
             <li role="presentation" class="active"><a href="javascript:;">已购模块</a></li>
@@ -18,8 +18,9 @@
             <li role="presentation"><a href="{!! u('template.installed') !!}">已经安装模板</a></li>
             <li role="presentation"><a href="{!! u('template.prepared') !!}">安装模板</a></li>
             <li role="presentation"><a href="{!! u('template.design') !!}">设计新模板</a></li>
-            <li role="presentation"><a href="{!! u('shop.lists',['type'=>'template']) !!}">模板商城</a>
-            </li>
+            <!--            <li role="presentation">-->
+            <!--                <a href="{!! u('shop.lists',['type'=>'template']) !!}">模板商城</a>-->
+            <!--            </li>-->
             <li role="presentation" class="active"><a href="javascript:;">已购模板</a></li>
         </if>
     </ul>
@@ -48,12 +49,23 @@
                             <span v-show="v.audit==0" class="label label-danger">测试版</span>
                         </small>
                         <p class="resume" v-html="v.resume"></p>
-                        <p>
-                            <a v-if="!v.is_install" @click="install(v)"
-                               class="btn btn-primary btn-sm btn-block" role="button">开始安装</a>
+                        <p v-if="v.locality">
+                            <a @click="install(v)" class="disabled btn btn-default btn-sm btn-block"
+                               role="button">
+                                存在同名本地应用
+                            </a>
                         </p>
-                        <p><span v-if="v.is_install"
-                                 class="disabled btn btn-default btn-sm btn-block">已经安装</span></p>
+                        <p v-if="!v.is_install && !v.locality">
+                            <a @click="install(v)" class="btn btn-primary btn-sm btn-block"
+                               role="button">
+                                开始安装
+                            </a>
+                        </p>
+                        <p v-if="v.is_install && !v.locality">
+                            <span class="disabled btn btn-default btn-sm btn-block">
+                                已经安装
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -71,7 +83,8 @@
         .thumbnail .resume {
             overflow: hidden;
             text-overflow: ellipsis;
-            height: 40px;
+            line-clamp: 2;
+            height: 50px;
             font-size: 12px;
             margin-top: 6px;
         }
@@ -100,9 +113,9 @@
                     },
                     //安装模块
                     install: function (module) {
-                        $.post("{!! u('install',['type'=>$_GET['type']]) !!}&id=" + module.id, function (json) {
+                        $.post("{!! u('install',['type'=>$_GET['type']]) !!}&name=" + module.name, function (json) {
                             if (json.valid == 0) {
-                                hdjs.message(json.message, "{!! u('shop.lists',['type'=>$_GET['type']]) !!}", 'warning', 8);
+                                hdjs.message(json.message, "", 'warning', 8);
                             } else {
                                 hdjs.message(json.message, json.url, 'success', 3);
                             }

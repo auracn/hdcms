@@ -28,7 +28,7 @@
                         <button class="btn btn-success btn-lg btn-block">登录</button>
                     </div>
                 </div>
-                <if value="\houdunwang\request\Request::isWeChat() && v('site.setting.login.mobile_wechat')==1">
+                <if value="\Request::isWeChat() && v('site.setting.login.mobile_wechat')==1">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <a href="{!! url('entry.wechatLogin') !!}" class="btn btn-info btn-lg btn-block">微信登录</a>

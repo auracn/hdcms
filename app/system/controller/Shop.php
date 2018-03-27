@@ -79,10 +79,10 @@ class Shop extends Admin
     }
 
     /**
-     * 根据编号更新模块
-     * 模板不能更新
+     * 根据编号更新模块 模板不能更新
      *
-     * @return mixed|void
+     * @return array|mixed
+     * @throws \Exception
      */
     public function upgrade()
     {
@@ -100,6 +100,6 @@ class Shop extends Admin
      */
     public function install()
     {
-        return Cloud::downloadApp(Request::get('type'), Request::get('module'));
+        return Cloud::downloadApp(Request::get('type'), Request::get('name'));
     }
 }

@@ -89,14 +89,15 @@ function record($message)
 /**
  * 会员中心通知
  *
- * @param $data
+ * @param     $data
  *
  * @return bool
  * @throws \Exception
  */
 function notification($data)
 {
-    if ($uid = v('member.info.uid')) {
+    $uid = isset($data['uid']) ? $data['uid'] : v('member.info.uid');
+    if ($uid) {
         $model       = new \system\model\Notification();
         $data['uid'] = $uid;
 

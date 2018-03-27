@@ -11,10 +11,12 @@
 namespace module\ucenter\controller;
 
 use system\model\Member;
+use system\model\MemberGroup;
 use system\model\Message;
 use houdunwang\request\Request;
 use Session;
 use View;
+
 /**
  * 会员资料管理
  * Class My
@@ -36,9 +38,10 @@ class My extends Auth
                 return message('会员资料修改成功', 'back', 'success');
             }
         }
+        $group = MemberGroup::find(v('member.info.group_id'));
         View::with('user', v('member.info'));
 
-        return $this->view($this->template.'/my_info');
+        return $this->view($this->template.'/my_info',compact('group'));
     }
 
     /**
@@ -53,7 +56,10 @@ class My extends Auth
         //发送验证码
         if (Request::get('sendCode')) {
             $user = Request::post('username');
-            if (Member::where('uid', '<>', v('member.info.uid'))->where('siteid', siteid())->where('email', $user)->first()) {
+            if (Member::where('uid', '<>', v('member.info.uid'))->where('siteid', siteid())->where(
+                'email',
+                $user
+            )->first()) {
                 return ['valid' => 0, 'message' => "{$user} 邮箱已经被其他帐号使用"];
             }
 
@@ -89,7 +95,10 @@ class My extends Auth
         //发送验证码
         if (Request::get('sendCode')) {
             $user = Request::post('username');
-            if (Member::where('uid', '<>', v('member.info.uid'))->where('siteid', siteid())->where('mobile', $user)->first()) {
+            if (Member::where('uid', '<>', v('member.info.uid'))->where('siteid', siteid())->where(
+                'mobile',
+                $user
+            )->first()) {
                 return ['valid' => 0, 'message' => "{$user} 手机号已经被其他帐号使用"];
             }
 
@@ -126,7 +135,9 @@ class My extends Auth
             if ( ! $member->checkPassword(Request::post('rpassword'))) {
                 return message('原密码输入错误', '', 'error');
             }
-            $status = $member->changePassword(['password' => Request::post('password'), 'cpassword' => Request::post('cpassword')]);
+            $status = $member->changePassword(
+                ['password' => Request::post('password'), 'cpassword' => Request::post('cpassword')]
+            );
             if ( ! $status) {
                 return message($member->getError(), '', 'info');
             }

@@ -12,6 +12,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">会员组</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" disabled value="{{$group['title']}}">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label">昵称</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="nickname" value="{{$user['nickname']}}">

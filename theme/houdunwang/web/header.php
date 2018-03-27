@@ -3,11 +3,8 @@
         <a href="http://www.houdunwang.com" title="点击返回后盾人首页." class="logo"></a>
         <!--导航条-->
         <div id="daohang">
-            <!--<div class="m">
-                <a href="http://www.houdunwang.com" class="title">官网首页</a>
-            </div>-->
             <div class="m">
-                <a href="/article11-91-1.html" target="_blank" class="title">PHP培训</a>
+                <a href="/article11-91-1.html" target="_blank" class="title index">后盾人<br />线下实战</a>
             </div>
             <!--<div class="m">
                 <a href="http://qianduan.houdunwang.com" target="_blank" class="title hot">前端培训</a>
@@ -99,6 +96,7 @@
                 height: 20px;
                 width: 96px;
                 margin-top: 5px;
+                position: relative;
             }
 
             #daohang .m:hover ul {
@@ -114,7 +112,12 @@
                 height: 30px;
                 font-size: 16px;
             }
-
+			#daohang .m .title.index{
+				height: 40px;
+				position: relative;
+				top: -10px;
+				font-size: 15px;
+			}
             #daohang .m .title.hot {
                 color: #F22F16;
                 font-weight: 700;
@@ -151,8 +154,8 @@
 
         <div class="our">
             <img src="{{ARTICLE_URL}}/images/our.jpg"/>
-            <p>最认真的PHP培训机构</p>
-            <p>只讲真功夫的PHP培训机构</p>
+            <p>认真专注的PHP培训机构</p>
+            <p>讲真功夫的PHP培训机构</p>
             <p>抢座热线：400-682-3231</p>
         </div>
     </div>

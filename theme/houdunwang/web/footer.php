@@ -8,7 +8,7 @@
 			<img src="{{ARTICLE_URL}}/images/footlogo.png" alt="" />
 		</div>
 		<div class="msg">
-			<p>我们的使命：传播互联网最前沿技术，帮助更多的人实现梦想!<strong><a href="http://www.houdunwang.com">PHP培训</a></strong></p>
+			<p>我们的使命：传播互联网前沿技术，帮助更多的人实现梦想!<strong><a href="http://www.houdunwang.com">PHP培训</a></strong></p>
 			<p>Copyright © 2010-2017 houdunwang.com All Rights Reserved </p>
 			<p>
 				京ICP备12048441号-3 runtime:{{round(microtime(true)-RUNTIME,3)}}

@@ -7,7 +7,7 @@
 	</ol>
 	<ul class="nav nav-tabs">
 		<li role="presentation"><a href="?s=system/manage/menu">系统管理</a>
-		<li role="presentation" class="active"><a href="{!! u('shop.lists') !!}">模块商城</a>
+<!--		<li role="presentation" class="active"><a href="{!! u('shop.lists') !!}">模块商城</a>-->
 	</ul>
 	<div class="alert alert-success">
 		<h4>正在下载请稍后 ...</h4>

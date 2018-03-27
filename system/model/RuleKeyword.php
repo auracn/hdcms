@@ -128,11 +128,10 @@ class RuleKeyword extends Common
         if ($res) {
             $module  = Modules::where('name', $res['module'])->first();
             $message = "该关键字已经在 <b>"."{$module['title']}</b> 模块中定义";
-        }
-        if ($res) {
+
             return ['valid' => 0, 'message' => $message];
-        } else {
-            return ['valid' => 1, 'message' => '关键词可以使用'];
         }
+
+        return ['valid' => 1, 'message' => '关键词可以使用'];
     }
 }

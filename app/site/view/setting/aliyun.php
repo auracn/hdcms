@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label">accessId</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" v-model="field.aliyun.accessId">
+                        <input type="text" class="form-control" v-model="field.aliyun.accessId">
                         <span class="help-block">
                             如果使用主账号访问，登陆阿里云 AccessKey 管理页面创建、查看 <br>
                             登录阿里云访问控制查看 https://ram.console.aliyun.com
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label">accessKey</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" v-model="field.aliyun.accessKey">
+                        <input type="text" class="form-control" v-model="field.aliyun.accessKey">
                         <span class="help-block">
                             如果使用主账号访问，登陆阿里云 AccessKey 管理页面创建、查看 <br>
                             登录阿里云访问控制查看 https://ram.console.aliyun.com
@@ -84,23 +84,18 @@
                     </div>
                 </div>
                 <div class="form-group" v-show="field.oss.use_site_oss==1">
-                    <label for="" class="col-sm-2 control-label">域名</label>
+                    <label for="" class="col-sm-2 control-label">endpoint</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" v-model="field.oss.endpoint">
-                        <span class="help-block">请登录阿里云后台查看,可以设置阿里云提供的公共域名，也可以使用自定义域名。<br/>
-                            如果使用自定义域名，需要将下面的 "使用自定义域名" 设置为 "是"</span>
+                        <span class="help-block">在前台JS上传文件到OSS时使用到，登录阿里云OSS设置的访问域名处查看</span>
                     </div>
                 </div>
                 <div class="form-group" v-show="field.oss.use_site_oss==1">
-                    <label for="" class="col-sm-2 control-label">自定义域名</label>
+                    <label for="" class="col-sm-2 control-label">访问域名</label>
                     <div class="col-sm-10">
-                        <label class="radio-inline">
-                            <input type="radio" value="1" v-model="field.oss.custom_domain"> 是
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="0" v-model="field.oss.custom_domain"> 否
-                        </label>
-                        <span class="help-block">是否使用自定义域名，需要先在阿里云后台OSS业务处解析好域名</span>
+                        <input type="text" class="form-control" v-model="field.oss.host">
+                        <span class="help-block">请登录阿里云后台查看,可以设置阿里云提供的公共域名，也可以使用自定义域名。<br/>
+                            如果使用自定义域名，需要将下面的 "使用自定义域名" 设置为 "是"</span>
                     </div>
                 </div>
             </div>

@@ -4,11 +4,11 @@ use houdunwang\response\Response;
 use houdunwang\route\Controller;
 use module\article\model\Web;
 use system\model\Modules;
-use Code;
 use system\model\Site;
 use houdunwang\session\Session;
-use View;
-use Request;
+use houdunwang\view\View;
+use houdunwang\request\Request;
+use houdunwang\config\Config;
 
 /**
  * 模块业务基类
@@ -47,6 +47,20 @@ abstract class HdController extends Controller
             Session::set('from', Request::get('from', '', ['urldecode']));
         }
         $this->fromUrl = Session::get('from') ?: url('member.index', [], 'ucenter');
+        $this->ossSetting();
+    }
+
+    /**
+     * OSS上传配置
+     */
+    protected function ossSetting()
+    {
+        if (v('site.setting.aliyun.aliyun.use_site_aliyun')
+            && v('site.setting.aliyun.oss.use_site_oss')) {
+            Config::set('aliyun', v('site.setting.aliyun.aliyun'));
+            Config::set('oss', v('site.setting.aliyun.oss'));
+            Config::set('upload.mold', 'oss');
+        }
     }
 
     /**

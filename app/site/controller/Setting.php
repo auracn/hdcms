@@ -71,7 +71,9 @@ class Setting extends Admin
             $_POST['creditnames']['credit1']['status'] = 1;
             $_POST['creditnames']['credit2']['status'] = 1;
             foreach ($_POST['creditnames'] as $credit => $d) {
-                $_POST['creditnames'][$credit]['status'] = isset($d['status']) ? intval($d['status']) : 0;
+                $_POST['creditnames'][$credit]['status'] = isset($d['status']) ? intval(
+                    $d['status']
+                ) : 0;
             }
             $this->db['creditnames'] = json_encode($_POST['creditnames'], JSON_UNESCAPED_UNICODE);
             $this->db->save();
@@ -95,7 +97,10 @@ class Setting extends Admin
     public function tactics(Site $siteModel)
     {
         if (IS_POST) {
-            $this->db['creditbehaviors'] = json_encode(Request::post('creditbehaviors'), JSON_UNESCAPED_UNICODE);
+            $this->db['creditbehaviors'] = json_encode(
+                Request::post('creditbehaviors'),
+                JSON_UNESCAPED_UNICODE
+            );
             $this->db->save();
             $siteModel->updateCache();
 
@@ -131,6 +136,7 @@ class Setting extends Admin
 
     /**
      * 邮件通知设置
+     *
      * @param \system\model\Site $siteModel
      *
      * @return mixed|string
@@ -146,9 +152,16 @@ class Setting extends Admin
             Config::set('mail', $config);
             //发送测试邮件
             if ($config['testing']) {
-                $d = Mail::send($config['testusername'], $config['testusername'], "邮箱配置测试成功", function () {
-                    return View::instance()->with(['title' => '测试邮件发送成功', 'content' => '恭喜！站点邮箱配置正确'])->fetch('resource/view/email');
-                });
+                $d = Mail::send(
+                    $config['testusername'],
+                    $config['testusername'],
+                    "邮箱配置测试成功",
+                    function () {
+                        return View::instance()->with(
+                            ['title' => '测试邮件发送成功', 'content' => '恭喜！站点邮箱配置正确']
+                        )->fetch('resource/view/email');
+                    }
+                );
                 if ($d) {
                     return message("测试邮件发送成功", 'refresh', 'success', 3);
                 } else {
@@ -244,7 +257,7 @@ class Setting extends Admin
             $this->db->save();
             $SiteModel->updateCache();
 
-            return message('修改支付宝参数成功', 'back');
+            return message('配置项修改成功', 'back');
         }
         $data = v('site.setting.pay');
 

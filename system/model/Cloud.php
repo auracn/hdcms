@@ -44,12 +44,12 @@ class Cloud extends Common
     public static function getHost()
     {
         $accounts = Db::table('cloud')->first();
-        if (in_array($_SERVER['SERVER_NAME'], ['test.hdcms.com'])) {
-            self::$host = 'http://hdcms.hdcms.com';
+        if (preg_match('/hdcms\.hdcms\.com/', __ROOT__)) {
+            self::$host = 'http://storedev.hdcms.com';
         }
 
         return self::$host
-               . "?secret={$accounts['secret']}&uid={$accounts['uid']}&secret={$accounts['secret']}&m=store&action=controller";
+               ."?secret={$accounts['secret']}&uid={$accounts['uid']}&secret={$accounts['secret']}&m=store&action=controller";
     }
 
     /**
@@ -73,7 +73,7 @@ class Cloud extends Common
      */
     public static function connect($data)
     {
-        $res   = Curl::post(self::getHost() . '/cloud/connect', $data);
+        $res   = Curl::post(self::getHost().'/cloud/connect', $data);
         $res   = json_decode($res, true);
         $model = static::find(1);
         if ($res['valid'] == 1) {
@@ -99,7 +99,7 @@ class Cloud extends Common
     public static function getSystemNotice($row = 5)
     {
         $data = static::find(1)->toArray();
-        $res  = Curl::post(self::getHost() . '/cloud/getSystemNotice&row=' . $row, $data);
+        $res  = Curl::post(self::getHost().'/cloud/getSystemNotice&row='.$row, $data);
 
         return json_decode($res, true);
     }
@@ -114,7 +114,7 @@ class Cloud extends Common
      */
     public static function getUpgradeList($row = 5)
     {
-        $res = Curl::get(self::getHost() . '/cloud/getUpgradeList&row=' . $row);
+        $res = Curl::get(self::getHost().'/cloud/getUpgradeList&row='.$row);
 
         return json_decode($res, true);
     }
@@ -127,7 +127,7 @@ class Cloud extends Common
     public static function getLastUpgradeList()
     {
         $data = self::find(1)->toArray();
-        $res  = Curl::post(self::getHost() . '/cloud/getLastUpgradeList&', $data);
+        $res  = Curl::post(self::getHost().'/cloud/getLastUpgradeList&', $data);
 
         return json_decode($res, true);
     }
@@ -150,7 +150,7 @@ class Cloud extends Common
     public static function getUpgradeVersion()
     {
         $data = static::find(1)->toArray();
-        $res  = Curl::post(self::getHost() . '/cloud/getUpgradeVersion', $data);
+        $res  = Curl::post(self::getHost().'/cloud/getUpgradeVersion', $data);
 
         return json_decode($res, true);
     }
@@ -163,7 +163,7 @@ class Cloud extends Common
     public static function updateHDownloadNum()
     {
         $build = Db::table('cloud')->where('id', 1)->pluck('build');
-        $res   = Curl::get(self::getHost() . '/cloud/updateHDownloadNum&build=' . $build);
+        $res   = Curl::get(self::getHost().'/cloud/updateHDownloadNum&build='.$build);
 
         return json_decode($res, true);
     }
@@ -223,15 +223,19 @@ class Cloud extends Common
      */
     public static function apps($type, $page, $appType = '')
     {
-        $content = Curl::get(self::getHost() . "/cloud/apps&type={$type}&page={$page}&appType="
-                             . $appType);
+        $content = Curl::get(
+            self::getHost()."/cloud/apps&type={$type}&page={$page}&appType="
+            .$appType
+        );
         $apps    = json_decode($content, true);
         if ($apps['valid'] == 1) {
             //已经安装的所模块
             $modules = Modules::lists('name');
             foreach ($apps['apps'] as $k => $v) {
                 //是否安装
+                $dir                            = "addons/{$v['name']}";
                 $apps['apps'][$k]['is_install'] = in_array($v['name'], $modules) ? true : false;
+                $apps['apps'][$k]['locality']   = is_dir($dir) && ! is_file("{$dir}/cloud.php");
             }
         }
 
@@ -249,7 +253,7 @@ class Cloud extends Common
         if (empty($post)) {
             return ['valid' => 1, 'message' => '没有可更新的模块', 'apps' => ''];
         }
-        $content = Curl::post(self::getHost() . "/cloud/getModuleUpgradeLists", $post);
+        $content = Curl::post(self::getHost()."/cloud/getModuleUpgradeLists", $post);
         $apps    = json_decode($content, true);
         if ($apps['valid'] == 1) {
             return $apps;
@@ -261,14 +265,15 @@ class Cloud extends Common
     /**
      * 更新指定模块
      *
-     * @param $name 模块标识
+     * @param string $name 模块标识
      *
      * @return array|mixed
+     * @throws \Exception
      */
     public function upgradeModuleByName($name)
     {
         $module = Db::table('modules')->where('name', $name)->first();
-        $res    = Curl::post(self::getHost() . "/cloud/getModuleUpgrade", $module);
+        $res    = Curl::post(self::getHost()."/cloud/getModuleUpgrade", $module);
         $app    = json_decode($res, true);
         if ($app['valid'] == 1) {
             //下载压缩文件
@@ -277,8 +282,10 @@ class Cloud extends Common
             $file = "addons/{$name}.zip";
             file_put_contents($file, $content);
             Zip::open($file)->extract('addons');
-            file_put_contents("addons/{$name}/cloud.php",
-                '<?php return ' . var_export($app, true) . ';?>');
+            file_put_contents(
+                "addons/{$name}/cloud.php",
+                '<?php return '.var_export($app, true).';?>'
+            );
             //删除下载压缩包
             Dir::delFile($file);
             //执行数据迁移
@@ -327,8 +334,9 @@ class Cloud extends Common
                 break;
         }
         //获取模块信息
-        $app = Curl::get(self::getHost() . "/cloud/getLastAppByName&type={$type}&name={$name}");
+        $app = Curl::get(self::getHost()."/cloud/getLastAppByName&type={$type}&name={$name}");
         $app = json_decode($app, true);
+
         if ($app['valid'] == 0) {
             return $app;
         }
@@ -346,8 +354,10 @@ class Cloud extends Common
                 Zip::open($file)->extract('addons');
                 //删除下载压缩包
                 Dir::delFile($file);
-                file_put_contents("addons/{$app['name']}/cloud.php",
-                    '<?php return ' . var_export($app, true) . ';?>');
+                file_put_contents(
+                    "addons/{$app['name']}/cloud.php",
+                    '<?php return '.var_export($app, true).';?>'
+                );
                 break;
             case 'template':
                 //下载文件
@@ -360,15 +370,17 @@ class Cloud extends Common
                 Zip::open($file)->extract('theme');
                 //删除下载压缩包
                 Dir::delFile($file);
-                file_put_contents("theme/{$app['name']}/cloud.php",
-                    '<?php return ' . var_export($app, true) . ';?>');
+                file_put_contents(
+                    "theme/{$app['name']}/cloud.php",
+                    '<?php return '.var_export($app, true).';?>'
+                );
         }
 
         return [
             'message' => '应用下载完成准备开始安装',
             'config'  => $app,
             //模板和目录安装变量不同需要设置 module与name两个
-            'url'     => u($type . '.install', ['module' => $app['name'], 'name' => $app['name']]),
+            'url'     => u($type.'.install', ['module' => $app['name'], 'name' => $app['name']]),
             'valid'   => 1,
         ];
     }

@@ -17,6 +17,7 @@ use module\article\model\Web;
 use module\HdController;
 use system\model\SiteWeChat;
 use houdunwang\db\Db;
+use system\model\Template;
 
 class Site extends HdController
 {
@@ -29,10 +30,12 @@ class Site extends HdController
     /**
      * 添加站点
      *
+     * @param \system\model\Template $template
+     *
      * @return mixed|string
      * @throws \Exception
      */
-    public function post(\system\model\Template $template)
+    public function post(Template $template)
     {
         if (IS_POST) {
             $model                  = Web::where('siteid', siteid())->first() ?: new Web();

@@ -22,7 +22,7 @@
         <include file="ARTICLE_PATH/block/menu"/>
         <div class="col-sm-12 text-center body">
             <h1>HDPHP 3.0</h1>
-            <p>可能是国内最好用的PHP开源框架</p>
+            <p>强大易用的PHP开源框架</p>
             <img src="http://www.hdcms.com/theme/hdphp/web/images/hdphp.jpg">
             <div class="row" style="margin-top: 30px;">
                     <p>

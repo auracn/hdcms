@@ -15,7 +15,8 @@ use system\model\Member;
 use system\model\MemberFields;
 use system\model\MemberGroup;
 use system\model\Site as SiteModel;
-use Db;
+use houdunwang\db\Db;
+use houdunwang\validate\Validate;
 
 /**
  * 会员中心

@@ -49,8 +49,8 @@
 		<div class="authority pad">
 			<div class="authorityCenter">
 				<div class="Htitle">
-					<p>2017PHP界权威全面更新火爆高薪知识点</p>
-					<span>在原有业界超前沿的课程体系外，2017年后盾人php培训又新增了APP开发、Vue.js、微信开发、HTML5/CSS3，最新Laravel、Thinkphp实战、Composer、Git、阿里云、SPA应用等行业最新技术。</span>
+					<p>2018PHP强悍更新火爆高薪知识点</p>
+					<span>在原有业界超前沿的课程体系外，2018年后盾人php培训又新增了APP开发、Vue.js、微信开发、HTML5/CSS3，Laravel、Thinkphp实战、Composer、Git、阿里云、SPA应用等行业热门技术。</span>
 					<span>超火爆的高薪课程“微信开发、PHP开发、大数据、 HTML5、APP开发、跨端开发、企业内部系统......”后盾毕业学员都能胜任。</span>
 				</div>
 				<ul>
@@ -62,7 +62,7 @@
 					<li>
 						<a href="javascript:void(0)"><img src="{{ARTICLE_URL}}/phpluodiye/img/h2.png" /></a>
 						<p>Laravel框架商业实战开发</p>
-						<span>全世界最优秀PHP框架，高薪企业必用</span>
+						<span>世界优秀PHP框架，高薪企业必用</span>
 					</li>
 					<li>
 						<a href="javascript:void(0)"><img src="{{ARTICLE_URL}}/phpluodiye/img/h3.png" /></a>
@@ -84,9 +84,9 @@
 		<div class="prospect pad">
 			<div class="prospectCenter">
 				<div class="Htitle">
-					<p>2017PHP界权威全面更新火爆高薪知识点</p>
+					<p>2018PHP强悍更新火爆高薪知识点</p>
 					<span>世界巨头网站都在用PHP，PHP时代已经到来，再不任性就晚了</span>
-					<span>我们不烧钱做铺天盖地的广告，把更多的资金和精力投入到企业需要的课程研发中，保障学员100%高薪就业！ </span>
+					<span>我们不烧钱做铺天盖地的广告，把更多的资金和精力投入到企业需要的课程研发中，保障学员高就业率！ </span>
 				</div>
 			</div>
 

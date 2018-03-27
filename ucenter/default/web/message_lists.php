@@ -2,8 +2,6 @@
 <block name="content">
     <link rel="stylesheet" href="/ucenter/default/web/static/css/message.css">
     <ul class="nav nav-tabs" role="tablist">
-        <li class="{!! !isset($_GET['status'])?'active':'' !!}"><a
-                    href="{!! url('message.lists',[],'ucenter') !!}">全部</a></li>
         <li class="{!! Request::get('status')==='0'?'active':'' !!}"><a
                     href="{!! url('message.lists',['status'=>0],'ucenter') !!}">未读</a></li>
         <li class="{!! Request::get('status')==='1'?'active':'' !!}"><a

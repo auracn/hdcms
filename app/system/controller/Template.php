@@ -2,10 +2,12 @@
 
 use system\model\Package;
 use system\model\Template as TemplateModel;
-use Dir;
-use Request;
+use houdunwang\dir\Dir;
+use houdunwang\request\Request;
 use houdunwang\validate\Validate;
 use houdunwang\db\Db;
+use houdunwang\zip\Zip;
+use houdunwang\file\File;
 
 /**
  * 文章模板管理
@@ -90,7 +92,8 @@ class Template extends Admin
         $data = $template->get()->toArray();
         foreach ($data as $k => $m) {
             //缩略图
-            $data[$k]['thumb'] = pic("theme/{$m['name']}/{$m['thumb']}");
+            $data[$k]['thumb']    = pic("theme/{$m['name']}/{$m['thumb']}");
+            $data[$k]['locality'] = ! is_file("theme/{$m['name']}/cloud.php");
         }
 
         return view()->with('template', $data);

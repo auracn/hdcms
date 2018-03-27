@@ -1,5 +1,6 @@
 <?php namespace system\model;
 
+use houdunwang\db\Db;
 use houdunwang\model\Model;
 
 class Notification extends Model
@@ -39,17 +40,43 @@ class Notification extends Model
     /**
      * 获取分页数据
      *
-     * @param int  $row    每页显示条数
-     * @param null $status 状态
+     * @param int $row    每页显示条数
+     * @param int $status 状态
      *
      * @return mixed
      */
-    public function getPageLists($row = 30, $status = null)
+    public static function getPageLists($row = 30, $status = 0)
     {
-        if (is_null($status)) {
-            return $this->where('siteid', siteid())->orderBy('id', 'DESC')->paginate($row);
-        } else {
-            return $this->where('siteid', siteid())->orderBy('id', 'DESC')->where('status', $status)->paginate($row);
-        }
+        $uid = v('member.info.uid');
+        //只保留100条信息
+        $sql = "DELETE FROM ".tablename('notification')." WHERE id IN(
+SELECT id FROM (SELECT id FROM ".tablename('notification')." WHERE uid={$uid} ORDER BY id DESC limit 3,99999) AS c
+)";
+        Db::execute($sql);
+        $where = [
+            ['siteid', siteid()],
+            ['status', $status],
+            ['uid', $uid],
+        ];
+        return self::where($where)->orderBy('id', 'DESC')->paginate($row);
+    }
+
+    /**
+     * 未读数量
+     *
+     * @param int $uid 会员编号
+     *
+     * @return mixed
+     */
+    public static function unReadCount($uid = 0)
+    {
+        $uid   = $uid ?: v('member.info.uid');
+        $where = [
+            ['siteid', siteid()],
+            ['uid', $uid],
+            ['status', 0],
+        ];
+
+        return self::where($where)->count();
     }
 }

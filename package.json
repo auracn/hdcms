@@ -42,5 +42,7 @@
     "vuex": "^2.4.0",
     "webpack": "^3.5.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "semantic-ui": "^2.3.0"
+  }
 }
