@@ -40,6 +40,24 @@ class Entry extends HdController
         View::with('module.site', json_decode(Db::table('web')->pluck('site_info'), true));
     }
 
+//    protected function replace()
+//    {
+//        $tables = \Schema::getAllTableInfo();
+//        foreach ($tables['table'] as $t) {
+//            $name = substr($t['tablename'], 3);
+//            $fields = \Schema::getFields($name);
+//            foreach ($fields as $f){
+//                $sql = "UPDATE {$t['tablename']} SET `{$f['field']}`=REPLACE(`{$f['field']}`, '后盾网', '后盾人')";
+//                \Db::execute($sql);
+//                $sql = "UPDATE {$t['tablename']} SET `{$f['field']}`=REPLACE(`{$f['field']}`, '后盾', '后盾人')";
+//                \Db::execute($sql);
+//                $sql = "UPDATE {$t['tablename']} SET `{$f['field']}`=REPLACE(`{$f['field']}`, '后盾人人', '后盾人')";
+//                \Db::execute($sql);
+//            }
+//        }
+//    }
+
+
     /**
      * 站点首页访问
      *
@@ -47,8 +65,10 @@ class Entry extends HdController
      */
     public function index()
     {
+//        $this->replace();
         $info = $this->web->info();
-        return $this->view($this->template . '/index')
+
+        return $this->view($this->template.'/index')
                     ->cache($info['site_info']['index_cache_expire']);
     }
 
@@ -63,7 +83,7 @@ class Entry extends HdController
         //设置模型编号
         Request::set('get.mid', $category['mid']);
         $hdcms = $category->toArray();
-        $tpl   = $this->template . '/' . ($category['ishomepage'] ? $category['index_tpl']
+        $tpl   = $this->template.'/'.($category['ishomepage'] ? $category['index_tpl']
                 : $category['category_tpl']);
 
         return $this->view($tpl, compact('hdcms'));
@@ -87,7 +107,7 @@ class Entry extends HdController
         $hdcms['category'] = $category;
         $hdcms['user']     = Db::table('user')->where('uid', $hdcms['uid'])->first();
         View::with(['hdcms' => $hdcms]);
-        $tpl = $this->template . '/' . ($hdcms['template'] ?: $category['content_tpl']);
+        $tpl = $this->template.'/'.($hdcms['template'] ?: $category['content_tpl']);
 
         return $this->view($tpl);
     }

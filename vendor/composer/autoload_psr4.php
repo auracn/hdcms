@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'tests\\' => array($baseDir . '/tests'),
     'system\\' => array($baseDir . '/system'),
-    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-docblock/src'),
+    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'module\\' => array($baseDir . '/module'),
     'houdunwang\\zip\\' => array($vendorDir . '/houdunwang/zip/src'),
     'houdunwang\\xml\\' => array($vendorDir . '/houdunwang/xml/src'),
@@ -32,7 +32,6 @@ return array(
     'houdunwang\\middleware\\' => array($vendorDir . '/houdunwang/middleware/src'),
     'houdunwang\\mail\\' => array($vendorDir . '/houdunwang/mail/src'),
     'houdunwang\\log\\' => array($vendorDir . '/houdunwang/log/src'),
-    'houdunwang\\loader\\' => array($vendorDir . '/houdunwang/loader/src'),
     'houdunwang\\lang\\' => array($vendorDir . '/houdunwang/lang/src'),
     'houdunwang\\image\\' => array($vendorDir . '/houdunwang/image/src'),
     'houdunwang\\html\\' => array($vendorDir . '/houdunwang/html/src'),

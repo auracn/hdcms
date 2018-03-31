@@ -10,7 +10,7 @@
             <li role="presentation"><a href="{!! u('installed') !!}">已经安装模板</a></li>
             <li role="presentation"><a href="?s=system/template/prepared">安装模板</a></li>
             <li role="presentation" class="active"><a href="javascript:;">设计新模板</a></li>
-            <li role="presentation"><a href="{!! u('shop.lists',['type'=>'template']) !!}">模板商城</a>
+            <li role="presentation"><a href="{!! u('shop.buy',['type'=>'template']) !!}">已购模板</a></li>
         </ul>
         <form class="form-horizontal" method="post" id="form" v-cloak @submit.prevent="submit()">
             <h5 class="page-header">模板基本信息

@@ -11,10 +11,8 @@
             <li role="presentation" class="active"><a href="javascript:;">已经安装模板</a></li>
             <li role="presentation"><a href="?s=system/template/prepared">安装模板</a></li>
             <li role="presentation"><a href="?s=system/template/design">设计新模板</a></li>
-            <li role="presentation"><a href="{!! u('shop.lists',['type'=>'template']) !!}">模板商城</a>
             <li role="presentation"><a href="{!! u('shop.buy',['type'=>'template']) !!}">已购模板</a></li>
         </ul>
-
         <nav role="navigation" class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">

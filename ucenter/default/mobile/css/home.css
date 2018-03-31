@@ -96,6 +96,10 @@ img {
 }
 .ucenter .list-group a {
   color: #555555;
+  border: solid 1px #f3f3f3 !important;
+}
+.ucenter .list-group a.list-group-item {
+  border: none;
 }
 .ucenter .header {
   height: 110px;

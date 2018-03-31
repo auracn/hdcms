@@ -280,7 +280,7 @@ class Setting extends Admin
             $this->db->save();
             $SiteModel->updateCache();
 
-            return message('修改会员支付参数成功', 'back');
+            return message('阿里云参数配置成功', 'back');
         }
 
         return view();

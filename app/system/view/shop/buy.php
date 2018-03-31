@@ -18,9 +18,6 @@
             <li role="presentation"><a href="{!! u('template.installed') !!}">已经安装模板</a></li>
             <li role="presentation"><a href="{!! u('template.prepared') !!}">安装模板</a></li>
             <li role="presentation"><a href="{!! u('template.design') !!}">设计新模板</a></li>
-            <!--            <li role="presentation">-->
-            <!--                <a href="{!! u('shop.lists',['type'=>'template']) !!}">模板商城</a>-->
-            <!--            </li>-->
             <li role="presentation" class="active"><a href="javascript:;">已购模板</a></li>
         </if>
     </ul>
@@ -28,6 +25,11 @@
         <div class="row" v-if="field.valid==0">
             <div class="col-sm-12 col-md-12">
                 <div class="alert alert-danger" v-html="field.message"></div>
+            </div>
+        </div>
+        <div class="row" v-if="field.valid==1">
+            <div class="col-sm-12 col-md-12">
+                <div class="alert alert-success" v-html="field.message"></div>
             </div>
         </div>
         <div class="row" v-show="field.valid==undefined">

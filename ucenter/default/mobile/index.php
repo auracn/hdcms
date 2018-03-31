@@ -21,7 +21,7 @@
                     </a>
                 </div>
             </div>
-            <div class="well pay clearfix">
+            <div class="well pay clearfix" hidden>
                 <div class="col-xs-3">
                     <a href="{!! url('ticket/lists') !!}&type=1&status=1">
                         <i class="fa fa-credit-card"></i> <span>折扣券</span>
@@ -43,19 +43,14 @@
             </div>
         </div>
 
-        <div class="list-group">
-            <a href="{!! url('account/balance') !!}" class="list-group-item">
-                <i class="fa fa-suitcase"></i> 余额充值 <i class="fa fa-angle-right pull-right"></i>
-            </a>
-        </div>
         <!--菜单列表-->
         <?php $MemberMenu = \system\model\Menu::moduleMenus('profile',v('member.info.group_id'));?>
         <foreach from="$MemberMenu" value="$v">
             <div class="list-group">
                 <if value="$v['module']['name']!='ucenter'">
-                <a href="#" class="list-group-item disabled">
-                    {{$v['module']['title']}}
-                </a>
+                    <a href="#" class="list-group-item disabled">
+                        {{$v['module']['title']}}
+                    </a>
                 </if>
                 <foreach from="$v['menus']" value="$field">
                     <a href="{!! $field['url'] !!}" class="list-group-item">
@@ -74,6 +69,9 @@
         {!! $uc['html'] !!}
         <!--菜单列表 end-->
         <div class="list-group">
+            <a href="{!! url('account/balance') !!}" class="list-group-item">
+                <i class="fa fa-suitcase"></i> 余额充值 <i class="fa fa-angle-right pull-right"></i>
+            </a>
             <a href="{!! url('my/mobile') !!}" class="list-group-item">
                 <i class="fa fa-mobile"></i>
                 修改手机号 <i class="fa fa-angle-right pull-right"></i>

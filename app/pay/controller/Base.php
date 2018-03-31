@@ -12,6 +12,7 @@
 namespace app\pay\controller;
 
 use system\model\Pay;
+use houdunwang\db\Db;
 
 trait Base
 {
@@ -34,12 +35,12 @@ trait Base
     /**
      * 更新支付表状态
      *
-     * @param string $tid 定单号
+     * @param string $tid    定单号
      * @param string $pay_id 微信/支付宝等定单号
      *
      * @return mixed
      */
-    protected function updateOrderStatus($tid,$pay_id)
+    protected function updateOrderStatus($tid, $pay_id)
     {
         $model = Pay::where('tid', $tid)->first();
         if ($model && $model['status'] == 0) {
@@ -47,6 +48,7 @@ trait Base
             $model['pay_id'] = $pay_id;
             $model->save();
         }
+
         return $model;
     }
 }

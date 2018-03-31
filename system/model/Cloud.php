@@ -45,7 +45,7 @@ class Cloud extends Common
     {
         $accounts = Db::table('cloud')->first();
         if (preg_match('/hdcms\.hdcms\.com/', __ROOT__)) {
-            self::$host = 'http://storedev.hdcms.com';
+            self::$host = 'http://hdcms.hdcms.com';
         }
 
         return self::$host
@@ -223,19 +223,31 @@ class Cloud extends Common
      */
     public static function apps($type, $page, $appType = '')
     {
-        $content = Curl::get(
-            self::getHost()."/cloud/apps&type={$type}&page={$page}&appType="
-            .$appType
-        );
+        $url     = self::getHost()."/cloud/apps&type={$type}&page={$page}&appType=";
+        $content = Curl::get($url.$appType);
         $apps    = json_decode($content, true);
         if ($apps['valid'] == 1) {
-            //已经安装的所模块
-            $modules = Modules::lists('name');
-            foreach ($apps['apps'] as $k => $v) {
-                //是否安装
-                $dir                            = "addons/{$v['name']}";
-                $apps['apps'][$k]['is_install'] = in_array($v['name'], $modules) ? true : false;
-                $apps['apps'][$k]['locality']   = is_dir($dir) && ! is_file("{$dir}/cloud.php");
+            switch ($type){
+                case 'module':
+                    //已经安装的所模块
+                    $modules = Modules::lists('name');
+                    foreach ($apps['apps'] as $k => $v) {
+                        //是否安装
+                        $dir                            = "addons/{$v['name']}";
+                        $apps['apps'][$k]['is_install'] = in_array($v['name'], $modules) ? true : false;
+                        $apps['apps'][$k]['locality']   = is_dir($dir) && ! is_file("{$dir}/cloud.php");
+                    }
+                    break;
+                case 'template':
+                    //已经安装的所模块
+                    $templates = Template::lists('name');
+                    foreach ($apps['apps'] as $k => $v) {
+                        //是否安装
+                        $dir                            = "theme/{$v['name']}";
+                        $apps['apps'][$k]['is_install'] = in_array($v['name'], $templates) ? true : false;
+                        $apps['apps'][$k]['locality']   = is_dir($dir) && ! is_file("{$dir}/cloud.php");
+                    }
+                    break;
             }
         }
 
@@ -334,7 +346,9 @@ class Cloud extends Common
                 break;
         }
         //获取模块信息
-        $app = Curl::get(self::getHost()."/cloud/getLastAppByName&type={$type}&name={$name}");
+        $url = self::getHost()."/cloud/getLastAppByName&type={$type}&name={$name}";
+        $app = Curl::get($url);
+
         $app = json_decode($app, true);
 
         if ($app['valid'] == 0) {

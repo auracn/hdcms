@@ -2,6 +2,7 @@
 
 1. 提交 dev 
 2. php hd cli:make 命令，生成压缩包
+3. 再次提交（更新了version.php) 
 3. 切换 master 
 4. 合并 dev -> master
 5. 切换 dev 
