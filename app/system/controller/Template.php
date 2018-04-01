@@ -113,6 +113,7 @@ class Template extends Admin
             "theme/{$name}/package.json",
             json_encode($config, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
         );
+
         //压缩文件
         Zip::create($zip, ["theme/{$name}"]);
         File::download($zip, $zip);

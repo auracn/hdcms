@@ -52,7 +52,7 @@ require.config({
         editormd: "dist/static/package/editor.md/editormd.amd",
         codemirror: "dist/static/package/codemirror.min",
         //代码高亮
-        highlight: "dist/static/package/highlight.min",
+        highlight: "dist/static/package/highlight/highlight.min",
         plupload: "dist/static/package/plupload/plupload.full.min"
     },
     shim: {

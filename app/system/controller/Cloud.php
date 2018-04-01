@@ -96,7 +96,7 @@ class Cloud extends Admin
                 //当前版本
                 $current = CloudModel::find(1);
                 //更新列表
-                $upgradeLists = CloudModel::getUpgradeList();
+                $upgradeLists = CloudModel::getUpgradeList(5);
 
                 return view('', compact('upgrade', 'current', 'upgradeLists', 'systemNotice'));
         }

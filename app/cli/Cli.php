@@ -1,8 +1,8 @@
 <?php namespace app\cli;
 
+use Alchemy\Zippy\Zippy;
 use houdunwang\cli\build\Base;
-use Curl;
-use Dir;
+use houdunwang\dir\Dir;
 use houdunwang\zip\Zip;
 
 /**
@@ -22,32 +22,33 @@ class Cli extends Base
     protected $hdcmsDir;
     //不进行打包的文件或目录
     protected $filters
-        = [
-            'cert',
-            'theme/hdcms',
-            'theme/hdphp',
-            'theme/houdunwang',
-            'node_modules',
-            'tests',
-            '.git',
-            'addons',
-            'data',
-            'install',
-            'storage',
-            'attachment',
-            'node_modules',
-            '.babelrc',
-            '.gitignore',
-        ];
+    = [
+        'cert',
+        'theme/hdcms',
+        'theme/hdphp',
+        'theme/houdunwang',
+        'theme/edu',
+        'node_modules',
+        'tests',
+        '.git',
+        'addons',
+        'data',
+        'install',
+        'storage',
+        'attachment',
+        'node_modules',
+        '.babelrc',
+        '.gitignore',
+    ];
 
     public function __construct()
     {
         $this->hdcmsDir = realpath('.');
-        $this->build    = date("YmdHis");
+        $this->build = date("YmdHis");
     }
 
     //不生成到更新压缩包的文件
-    protected $filterUpgradeFiles = ['data/database.php',];
+    protected $filterUpgradeFiles = ['data/database.php'];
 
     /**
      * 同时生成完整与更新压缩包
@@ -66,9 +67,9 @@ class Cli extends Base
     public function version($type)
     {
         $data['version'] = 'V2.0';
-        $data['build']   = $this->build;
-        $data['logs']    = '';
-        $data['type']    = $type;
+        $data['build'] = $this->build;
+        $data['logs'] = '';
+        $data['type'] = $type;
         $data['explain'] = '';
         file_put_contents('version.php', "<?php return " . var_export($data, true) . ';');
     }
@@ -98,7 +99,7 @@ class Cli extends Base
         $this->version('upgrade');
         exec("git diff master --name-status", $files);
         $files = $this->format($files);
-        if ( ! empty($files)) {
+        if (!empty($files)) {
             //复制文件
             foreach ($files as $f) {
                 Dir::copyFile($f['file'], $this->savePath . '/' . $f['file']);
@@ -108,10 +109,14 @@ class Cli extends Base
                 $file = $this->savePath . '/' . $d;
                 is_dir($d) ? Dir::del($file) : Dir::delFile($file);
             }
-            file_put_contents($this->savePath . '/upgrade_files.php',
-                "<?php return " . var_export($files, true) . ';?>');
-            Zip::create(dirname($this->savePath) . '/hdcms.upgrade.' . date('md') . '.zip',
-                [$this->savePath]);
+            file_put_contents(
+                $this->savePath . '/upgrade_files.php',
+                "<?php return " . var_export($files, true) . ';?>'
+            );
+            $file = dirname($this->savePath) . '/hdcms.upgrade.' . date('md') . '.zip';
+
+            $zippy = Zippy::load();
+            $zippy->create($file, ['folder' => $this->savePath], true);
             exec('rm -rf ' . $this->savePath);
         }
     }
@@ -130,7 +135,7 @@ class Cli extends Base
         $format = [];
         foreach ($files as $k => $f) {
             preg_match('/\w+\s+([^\s]+)/', $f, $file);
-            if ( ! in_array($file[1], $this->filterUpgradeFiles)) {
+            if (!in_array($file[1], $this->filterUpgradeFiles)) {
                 if (is_file($file[1])) {
                     if (in_array($file[0], ['A', 'M'])) {
                         $format[] = ['file' => $file[1], 'state' => $file[0]];

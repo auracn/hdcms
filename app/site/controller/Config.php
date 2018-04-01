@@ -28,6 +28,7 @@ class Config extends Admin
      */
     public function post()
     {
+    
         auth('system_setting');
         //后台分配菜单
         $class = '\addons\\' . v('module.name') . '\system\Config';

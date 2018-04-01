@@ -2,8 +2,9 @@
 
 use houdunwang\model\Model;
 use system\model\Rule;
-use Request;
-use Db;
+use houdunwang\request\Request;
+use houdunwang\db\Db;
+
 /**
  * 文章管理
  * Class WebContent

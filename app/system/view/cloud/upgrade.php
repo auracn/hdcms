@@ -9,20 +9,20 @@
         <li role="presentation" class="active"><a href="#">系统更新</a></li>
     </ul>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="panel panel-info">
                 <div class="panel-body alert-info">
                     <h5 style="margin-top: 0px;"><i class="fa fa-refresh"></i> <strong>更新日志</strong></h5>
                     <foreach from="$upgradeLists" value="$v">
                         <p>
-                            <span>{{$v['version']}} {{$v['logs']}}</span>
+                            <span>{{$v['logs']}}</span>
                             <span class="pull-right">{{date('Y-m-d',strtotime($v['build']))}}</span>
                         </p>
                     </foreach>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" hidden>
             <div class="panel panel-info">
                 <div class="panel-body alert-info">
                     <h5 style="margin-top: 0px;"><i class="fa fa-bullhorn"></i> <strong>系统公告</strong></h5>
@@ -74,31 +74,41 @@
                     </p>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">更新协议</label>
-                <div class="col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" v-model="cp1"> 我已经做好了相关文件的备份工作
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" v-model="cp2"> 认同官方的更新行为并自愿承担更新所存在的风险
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" v-model="cp3"> 理解官方的辛勤劳动并报以感恩的心态点击更新按钮
-                        </label>
+            <if value="$upgrade['hdcms']['type']=='full'">
+                <div class="alert alert-warning">
+                    由于本次更新文件过多，需要下载完整版压缩包执行更新操作。<br><br>
+                    <h5>更新步骤</h5>
+                    1. 下载完成版压缩包，执行覆盖替换 <a href="http://www.hdcms.com/hdcms.full.zip">下载完整包</a> <br>
+                    2. 执行 <a href="{!!__ROOT__!!}/update">{!!__ROOT__!!}/update</a> 完成更新
+                </div>
+            </if>
+            <if value="$upgrade['hdcms']['type']=='upgrade'">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">更新协议</label>
+                    <div class="col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" v-model="cp1"> 我已经做好了相关文件的备份工作
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" v-model="cp2"> 认同官方的更新行为并自愿承担更新所存在的风险
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" v-model="cp3"> 理解官方的辛勤劳动并报以感恩的心态点击更新按钮
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <button type="button" class="btn btn-default col-lg-offset-1" disabled v-show="!cp1 || !cp2 ||!cp3">请接受所有更新协议
-            </button>
-            <button type="button" class="btn btn-success col-lg-offset-1" @click="send()" v-show="cp1 && cp2 &&cp3">
-                开始执行更新
-            </button>
+                <button type="button" class="btn btn-default col-lg-offset-1" disabled v-show="!cp1 || !cp2 ||!cp3">请接受所有更新协议
+                </button>
+                <button type="button" class="btn btn-success col-lg-offset-1" @click="send()" v-show="cp1 && cp2 &&cp3">
+                    开始执行更新
+                </button>
+            </if>
             <else/>
             <div class="panel panel-success">
                 <div class="panel-heading">
