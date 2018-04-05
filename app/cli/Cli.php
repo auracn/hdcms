@@ -114,9 +114,7 @@ class Cli extends Base
                 "<?php return " . var_export($files, true) . ';?>'
             );
             $file = dirname($this->savePath) . '/hdcms.upgrade.' . date('md') . '.zip';
-
-            $zippy = Zippy::load();
-            $zippy->create($file, ['folder' => $this->savePath], true);
+            Zip::create($file, [$this->savePath]);
             exec('rm -rf ' . $this->savePath);
         }
     }
