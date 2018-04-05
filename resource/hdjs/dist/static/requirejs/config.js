@@ -27,7 +27,7 @@ require.config({
         //上传组件
         webuploader: 'dist/static/package/webuploader/dist/webuploader',
         md5: 'dist/static/package/md5.min',
-        bootstrap: 'dist/static/package/bootstrap/bootstrap.min',
+        bootstrap: 'dist/static/package/bootstrap-3.3.7-dist/js/bootstrap.min',
         lodash: 'dist/static/package/lodash.min',
         //复选框切换
         bootstrapswitch: 'dist/static/package/bootstrap-switch/bootstrap-switch.min',
@@ -85,7 +85,7 @@ require.config({
             exports: '$',
             deps: [
                 'jquery',
-                'css!dist/static/package/bootstrap/bootstrap.min.css',
+                'css!dist/static/package/bootstrap-3.3.7-dist/css/bootstrap.min.css',
                 'css!dist/static/package/font-awesome-4.7.0/css/font-awesome.min.css'
             ]
         },

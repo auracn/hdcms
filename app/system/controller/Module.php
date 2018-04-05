@@ -38,12 +38,14 @@ class Module extends Admin
     {
         $name = Request::get('name');
         $dir  = "addons/{$name}";
-        $zip  = $name . ".zip";
+        $zip  = $name.".zip";
         //设置编译时间
         $config          = json_decode(file_get_contents("{$dir}/package.json"), true);
         $config['build'] = Carbon::now()->toDateTimeString();
-        file_put_contents($dir . '/package.json',
-            json_encode($config, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        file_put_contents(
+            $dir.'/package.json',
+            json_encode($config, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+        );
         //压缩文件
         Zip::create($zip, ["addons/{$name}"]);
         File::download($zip, $zip);
@@ -75,11 +77,11 @@ class Module extends Admin
         //本地模块
         $locality = [];
         foreach (Dir::tree('addons') as $d) {
-            if ($d['type'] == 'dir' && is_file($d['path'] . '/package.json')) {
-                $config = json_decode(file_get_contents($d['path'] . '/package.json'), true);
+            if ($d['type'] == 'dir' && is_file($d['path'].'/package.json')) {
+                $config = json_decode(file_get_contents($d['path'].'/package.json'), true);
                 //去除已经安装的模块和远程模块
                 if ( ! in_array($config['name'], $modules)
-                     && ! is_file($d['path'] . '/cloud.php')) {
+                     && ! is_file($d['path'].'/cloud.php')) {
                     $locality[$config['name']] = $config;
                 }
             }
@@ -93,6 +95,7 @@ class Module extends Admin
      * 根据新配置更新模块
      *
      * @return array
+     * @throws \Exception
      */
     public function update()
     {
@@ -131,7 +134,7 @@ class Module extends Admin
         if (empty($config['web']['entry'])) {
             $config['web']['entry'] = ['title' => '', 'do' => '', 'params' => ''];
         }
-        $config['preview'] = 'addons/' . $config['name'] . '/' . $config['preview'];
+        $config['preview'] = 'addons/'.$config['name'].'/'.$config['preview'];
 
         return view()->with('config', json_encode($config, JSON_UNESCAPED_UNICODE));
     }

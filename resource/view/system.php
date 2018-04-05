@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-    <link href="/resource/hdjs/dist/static/package/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/resource/hdjs/dist/static/package/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/resource/hdjs/dist/static/package/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/resource/css/hdcms.css?version={{HDCMS_VERSION}}">
     <link rel="stylesheet" href="/resource/hdjs/dist/static/css/hdjs.css?version={{HDCMS_VERSION}}">
