@@ -11,7 +11,7 @@
 namespace system\model;
 
 use houdunwang\db\Db;
-
+use system\model\SiteWeChat as WeChat;
 /**
  * 微信回复规则
  * Class Rule

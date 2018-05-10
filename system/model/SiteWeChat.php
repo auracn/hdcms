@@ -125,6 +125,7 @@ class SiteWeChat extends Common
 
             return true;
         }
+        return true;
     }
 
     /**

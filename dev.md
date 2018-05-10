@@ -5,5 +5,3 @@
 3. 切换 master 
 4. 合并 dev -> master
 5. 切换 dev 
-
-## 每周五更新
